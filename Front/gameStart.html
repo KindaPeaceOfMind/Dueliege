@@ -1,0 +1,72 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Dead Magic</title>
+</head>
+<body>
+<div class='body' style="text-align-last: center;">
+    <p><b>Выберите класс:</b><Br>
+        <input type="radio" name="skills" value="1" checked> warrior<Br>
+        <input type="radio" name="skills" value="2"> ranger<Br>
+        <input type="radio" name="skills" value="3"> mage</p>
+    <button onclick="start()">Начать</button></p>
+</div>
+<script>
+    function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    
+let sessionParams = {}
+
+async function start() {
+    let checkedRadio = 0;
+    let radios = document.getElementsByName("skills");
+    for (let radio of radios) {
+		if (radio.checked) {
+            checkedRadio = radio.value;
+			break
+		}
+	}
+    let response = await fetch('/start', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify([getCookie('token'), checkedRadio])
+    })
+    let result = await response.json();//Получили: успех, номер сессии, логин, противника
+    
+    if(result[0]){
+        sessionParams.sessionId = result[1];
+        sessionParams.login = result[2];
+        sessionParams.enemy = result[3];
+        let urls = [
+            'low_actions.js',
+            'actions.js',
+            'click_Events.js',
+            'game_interface.js',
+            'map_render.js',
+            'map_scroller.js',
+            'player_render.js',
+            'gameTurns.js'
+        ];
+        function InsertGameUrls(){
+            document.getElementsByClassName('body')[0].innerHTML = '<link rel="stylesheet" href="style/game_style.css">';
+            for(i in urls){
+                let newScript = document.createElement("script");
+                newScript.src = 'script/'+urls[i];
+                newScript.async = false;
+                document.getElementsByClassName('body')[0].appendChild(newScript);
+            }
+        }
+        InsertGameUrls();
+    }else{document.write("Ошибка в ответе сервера")}
+}
+</script>
+</body>
