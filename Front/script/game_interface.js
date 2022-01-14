@@ -51,7 +51,7 @@ function ShowSkills(player){
 
 			i++;
 		}
-		if(player.team == sessionParams.login||yourTurn){
+		if(player.team == sessionParams.login&&yourTurn){
 			i = 0;
 			for (skill in player.playerStats.skills){
 				let div = document.createElement('div');
