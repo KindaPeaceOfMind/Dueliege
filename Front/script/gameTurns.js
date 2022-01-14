@@ -1,24 +1,30 @@
 let sessionTurns = {};//[\session,\ turnId, player, hero, action, cell]
 let turn = 0;
-console.log(sessionParams);
+let yourTurn = false;
 
-turnPoster(turn, sessionParams.login, 'p1', 'action', '1-12');
 turnGetter(turn);
 
-function turnPoster(turn, player, hero, action, cell) {
+async function turnPoster(player, hero, action, cell) {
     let body = [sessionParams.sessionId, turn, player, hero, action, cell];
     let url = '/session';
-    let result = fetcher(url, body);
-    alert(result);
+    let result = await fetcher(url, body);
+    turn+=1;
 }
-function turnGetter(turn) {
-    let body = [sessionParams.sessionId, turn];
+async function turnGetter(turnToGet) {
+    let body = [sessionParams.sessionId, turnToGet];
     let url = '/session';
 
-    let result = fetcher(url,body);
+    let result = await fetcher(url,body);
     
-    if(result[0]){
-        alert(result);
+    if(result[0]==1){
+        if(result[1][2]=='ChangeTurn'){
+            turn+=1;
+            ChangeTurn();
+        }else{
+            turn+=1;
+            ActionPerformer(result[1][3]);
+            setTimeout(turnGetter, 3000, turn);
+        }
     }else{
         setTimeout(turnGetter, 3000, turn);
     }
@@ -33,4 +39,15 @@ async function fetcher(url,body){
         body: JSON.stringify(body)
     })
     return await response.json();
+}
+function ClickChangeTurn(){
+    ShowSkills();
+    turnPoster(sessionParams.login, 'p0', 'ChangeTurn', '0-0');
+    ChangeTurn();
+}
+function ChangeTurn(){
+    yourTurn = !yourTurn;
+    if(!yourTurn){
+        turnGetter(turn);
+    }
 }

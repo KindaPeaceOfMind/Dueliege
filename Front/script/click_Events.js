@@ -1,28 +1,38 @@
-let action = 1;
+let action = 0;
+let actionSubject = false;
 function ClickCell(){
-    actions = {     //Actions Switch - Наше активное действие -> момент анимации
-        0: ()=>{},
-        1: ExplosionWave,
-        2: Place
+    ShowSkills()
+    if(action){
+        ActionPerformer(this.id);
+        turn+=1;
     }
-    actions[action](this.id);
+    action = 0;
+    actionSubject = false;
 }
-// Написать функции для скиллов
-// Функция разрушения стены
-// Функция нанесения урона
-// Функция скилла
-// 
-// 
-// 
+function ActionPerformer(cellId) {
+    switch (action) {
+        case 0:
+            Empty();
+        break;
+        case 'Empty':
+            Empty();
+        break;
+        case 'ExplosionWave':
+            ExplosionWave(cellId);
+        break
+        case 'Place':
+            Place(cellId);
+        break
+    }
+}
 
 function ClickHero(){
     ShowSkills(this);
-
-    console.log(this.id);
-    console.log(map.PlayersLocation[this.id]);
+    if(yourTurn){
+        actionSubject = this.id
+    }
 }
 function ClickSkill(){//Преобразование номера скилла в событие для ClickCell
 	action = this.value;
     console.log(this)
 }
-function ClickChangeTurn(){}

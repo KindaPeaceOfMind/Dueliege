@@ -175,12 +175,10 @@ app.post('/session', jsonParser, async function (req, res){
     }
   })
   if(Session){
+    console.log(input)
     if(input[2] && input[3] && input[4] && input[5]){//post
-      sessionsTurns = {
-        [input[0]]:{
-          [input[1]]:[input[2], input[3], input[4], input[5]]
-        }
-      };
+      sessionsTurns[input[0]][input[1]] = [input[2], input[3], input[4], input[5]]
+      
       console.log("Ход добавлен");
       console.log(sessionsTurns[input[0]][input[1]]);
       res.json([1])
@@ -190,17 +188,15 @@ app.post('/session', jsonParser, async function (req, res){
           console.log("Ход выведен");
           console.log(sessionsTurns[input[0]]);
           res.json([1,
-            sessionsTurns[input[0]][input[1]]//[0],
-            // sessionsTurns[input[0]][input[1]][1],
-            // sessionsTurns[input[0]][input[1]][2],
-            // sessionsTurns[input[0]][input[1]][3]
+            sessionsTurns[input[0]][input[1]]
           ])
         }else{
           console.log("Такого хода ещё не было");
           res.json([0])
         }
-      }else{console.log("Хода в этой сессии ещё не было");
-          res.json([0])}
+      }else{
+        sessionsTurns[input[0]] = {0:['FirstTurn','FirstTurn','Empty','FirstTurn']};
+        res.json([1,['FirstTurn','FirstTurn','ChangeTurn','FirstTurn']])}
     }
   }else{res.json([0,'Сессия не найдена'])}
 })
