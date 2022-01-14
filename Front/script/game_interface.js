@@ -23,22 +23,22 @@ function ShowSkills(player){
   	'</linearGradient>'+
 	'<polygon points="4,5 305,5 4,488" fill="orange" stroke="red" stroke-width="5"></polygon>'+
 '</svg>';
-	if(yourTurn){
-		let div = document.createElement('div');
-		div.style.position = 'fixed';
-		div.style.bottom = '0px';
-		div.style.backgroundColor = 'orange';
-		div.style.left = '0px';
-		div.style.border = '3px solid red';
-		div.style.borderRadius = '10px';
-		div.style.height = '80px';
-		div.style.width = '80px';
-		div.value = 'ChangeTurn';
-		div.innerHTML = 'ChangeTurn';
-		div.addEventListener('click', ClickChangeTurn);
-		skillMenu.appendChild(div);
-	}
 	if(player){
+		if(yourTurn){
+			let div = document.createElement('div');
+			div.style.position = 'fixed';
+			div.style.bottom = '0px';
+			div.style.backgroundColor = 'orange';
+			div.style.left = '0px';
+			div.style.border = '3px solid red';
+			div.style.borderRadius = '10px';
+			div.style.height = '80px';
+			div.style.width = '80px';
+			div.value = 'ChangeTurn';
+			div.innerHTML = 'ChangeTurn';
+			div.addEventListener('click', ClickChangeTurn);
+			skillMenu.appendChild(div);
+		}
 		let i = 0;
 		for (stat in player.playerStats){
 			let div = document.createElement('div');
@@ -63,7 +63,7 @@ function ShowSkills(player){
 				div.style.borderRadius = '10px';
 				div.style.height = '80px';
 				div.style.width = '80px';
-
+				
 				div.value = player.playerStats.skills[skill];
 				div.innerHTML = player.playerStats.skills[skill];
 				div.addEventListener('click', ClickSkill);

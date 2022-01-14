@@ -1,3 +1,4 @@
+
 let sessionTurns = {};//[\session,\ turnId, player, hero, action, cell]
 let turn = 0;
 let yourTurn = false;
@@ -22,6 +23,7 @@ async function turnGetter(turnToGet) {
             ChangeTurn();
         }else{
             turn+=1;
+            action = result[1][2]
             ActionPerformer(result[1][3]);
             setTimeout(turnGetter, 3000, turn);
         }
@@ -40,10 +42,10 @@ async function fetcher(url,body){
     })
     return await response.json();
 }
-function ClickChangeTurn(){
-    ShowSkills();
-    turnPoster(sessionParams.login, 'p0', 'ChangeTurn', '0-0');
+async function ClickChangeTurn(){
+    await turnPoster(sessionParams.login, 'p0', 'ChangeTurn', '0-0');
     ChangeTurn();
+    ShowSkills();
 }
 function ChangeTurn(){
     yourTurn = !yourTurn;

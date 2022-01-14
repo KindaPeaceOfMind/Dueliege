@@ -1,7 +1,7 @@
 let playerStats = {
     'hp': 20, 'armor': 10,
     'stamina': 8, 'mana': 3,
-    'skills': ['walk','blowup'], 'buffs': [], 'resists': [],
+    'skills': ['Walk','ExplosionWave','Place'], 'buffs': [], 'resists': [],
     'lvl': 1, 'stats': []
 };
 

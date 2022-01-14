@@ -1,11 +1,8 @@
+function Empty(){}
 function Place(cellId){
-    //console.log('place'+cellId+' is done');
-    console.log('Action-place');
     PlaceImg(cellId, 'media/actions/gifs/Explosion.gif', true);
 }
 function ExplosionWave(cellId){
-    console.log('ExplosionWave '+cellId+' is done');
-    console.log(cellId);
     let cell = cellId.split('-');
     //Lift(cellId, 20, 1, 0);
     r = 10;

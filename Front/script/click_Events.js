@@ -4,7 +4,7 @@ function ClickCell(){
     ShowSkills()
     if(action){
         ActionPerformer(this.id);
-        turn+=1;
+        turnPoster(sessionParams.login, actionSubject, action, this.id)
     }
     action = 0;
     actionSubject = false;
@@ -34,5 +34,4 @@ function ClickHero(){
 }
 function ClickSkill(){//Преобразование номера скилла в событие для ClickCell
 	action = this.value;
-    console.log(this)
 }

@@ -179,14 +179,14 @@ app.post('/session', jsonParser, async function (req, res){
     if(input[2] && input[3] && input[4] && input[5]){//post
       sessionsTurns[input[0]][input[1]] = [input[2], input[3], input[4], input[5]]
       
-      console.log("Ход добавлен");
+      console.log("Ход "+input[1]+" добавлен");
       console.log(sessionsTurns[input[0]][input[1]]);
       res.json([1])
     }else{//get
       if(sessionsTurns[input[0]]){
         if(sessionsTurns[input[0]][input[1]]){
           console.log("Ход выведен");
-          console.log(sessionsTurns[input[0]]);
+          console.log(sessionsTurns[input[0][input[1]]]);
           res.json([1,
             sessionsTurns[input[0]][input[1]]
           ])
