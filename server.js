@@ -192,7 +192,7 @@ app.post('/session', jsonParser, async function (req, res){
           ])
         }else{
           console.log("Такого хода ещё не было");
-          res.json([0])
+          res.json([0]);
         }
       }else{
         sessionsTurns[input[0]] = {0:['FirstTurn','FirstTurn','Empty','FirstTurn']};

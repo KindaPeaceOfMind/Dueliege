@@ -30,46 +30,48 @@ let optiLiftCounter = 0;
  */
 function Lift(cellId, level, speed, startlevel) {
     //console.log(cellId, level, speed, startlevel);
-    let cell = document.getElementsByClassName(cellId)[0];
-    if(!cell){
+    let cells = document.getElementsByClassName(cellId);
+    if(!cells){
         return
     }
-    let optiLiftParams = level+'_'+speed+'_'+startlevel; //Параметры
-    if(!optiLift.hasOwnProperty([optiLiftParams])){//optilift.
-        
-        optiLiftCounter+=1;
-        optiLift[optiLiftParams] = optiLiftCounter;
-        //console.log(optiLift);
-        
-        let style = document.createElement('style');
-        style.type = 'text/css';
-        document.getElementsByTagName('head')[0].appendChild(style);
+    for(let cell in cells){
+        let optiLiftParams = level+'_'+speed+'_'+startlevel; //Параметры
+        if(!optiLift.hasOwnProperty([optiLiftParams])){//optilift.
+            
+            optiLiftCounter+=1;
+            optiLift[optiLiftParams] = optiLiftCounter;
+            //console.log(optiLift);
+            
+            let style = document.createElement('style');
+            style.type = 'text/css';
+            document.getElementsByTagName('head')[0].appendChild(style);
 
-        let keyFrames = '\
-        @-webkit-keyframes lift'+optiLiftCounter+' {\
-            0%{\
-                -webkit-transform: translate('+startlevel+'px, '+startlevel*1.7+'px);\
+            let keyFrames = '\
+            @-webkit-keyframes lift'+optiLiftCounter+' {\
+                0%{\
+                    -webkit-transform: translate('+startlevel+'px, '+startlevel*1.7+'px);\
+                }\
+                100% {\
+                    -webkit-transform: translate('+level+'px, '+level*1.7+'px);\
+                }\
             }\
-            100% {\
-                -webkit-transform: translate('+level+'px, '+level*1.7+'px);\
-            }\
-        }\
-        @-moz-keyframes lift'+optiLiftCounter+' {\
-            0%{\
-                -moz-transform: translate('+startlevel+'px, '+startlevel*1.7+'px);\
-            }\
-            100% {\
-                -moz-transform: translate('+level+'px, '+level*1.7+'px);\
-            }\
-        }';
-        style.innerHTML = keyFrames;
+            @-moz-keyframes lift'+optiLiftCounter+' {\
+                0%{\
+                    -moz-transform: translate('+startlevel+'px, '+startlevel*1.7+'px);\
+                }\
+                100% {\
+                    -moz-transform: translate('+level+'px, '+level*1.7+'px);\
+                }\
+            }';
+            style.innerHTML = keyFrames;
 
-        cell.style.animation = 'lift'+optiLiftCounter+' '+speed+'s forwards 1';
-    }else{
-        cell.style.animation = 'lift'+optiLift[optiLiftParams]+' '+speed+'s forwards 1';
+            cells[cell].style.animation = 'lift'+optiLiftCounter+' '+speed+'s forwards 1';
+        }else{
+            cells[cell].style.animation = 'lift'+optiLift[optiLiftParams]+' '+speed+'s forwards 1';
+        }
+        // setTimeout(() => {
+        //     cell.style.transform = 'translate('+level+'px, '+level*1.7+'px)';
+        //     cell.style.animation = '';
+        // }, speed*(1000));
     }
-    // setTimeout(() => {
-    //     cell.style.transform = 'translate('+level+'px, '+level*1.7+'px)';
-    //     cell.style.animation = '';
-    // }, speed*(1000));
 }

@@ -23,6 +23,9 @@ function ActionPerformer(cellId) {
         case 'Place':
             Place(cellId);
         break
+        case 'Walk':
+            Walk(cellId, actionSubject);
+        break
     }
 }
 
