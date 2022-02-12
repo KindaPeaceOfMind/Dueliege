@@ -16,6 +16,7 @@ table{
     position: absolute;
     width: 1200px;
     border-spacing: 0;
+    z-index: 2;
 }
 td{
     height: 28px;

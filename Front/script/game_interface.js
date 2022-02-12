@@ -8,6 +8,7 @@ skillMenu.innerHTML =
 	'<polygon points="4,5 305,5 4,488" fill="orange" stroke="red" stroke-width="5"></polygon>'+
 '</svg>';
 skillMenu.style.position = 'fixed';
+skillMenu.style.zIndex = 1;
 skillMenu.classList = 'skillMenu';
 document.getElementsByClassName('body')[0].appendChild(skillMenu);
 
@@ -36,6 +37,7 @@ function ShowSkills(player){
 			div.style.width = '80px';
 			div.value = 'ChangeTurn';
 			div.innerHTML = 'ChangeTurn';
+			div.style.zIndex = 3;
 			div.addEventListener('click', ClickChangeTurn);
 			skillMenu.appendChild(div);
 		}
@@ -46,6 +48,7 @@ function ShowSkills(player){
 			div.style.top = 15+15*i+'px';
 			div.style.left = 15+'px';
 			div.style.position = 'fixed';
+			div.style.zIndex = 3;
 			div.innerHTML = stat+': '+player.playerStats[stat];
 			skillMenu.appendChild(div);
 
@@ -63,6 +66,7 @@ function ShowSkills(player){
 				div.style.borderRadius = '10px';
 				div.style.height = '80px';
 				div.style.width = '80px';
+				div.style.zIndex = 3;
 				
 				div.value = player.playerStats.skills[skill];
 				div.innerHTML = player.playerStats.skills[skill];

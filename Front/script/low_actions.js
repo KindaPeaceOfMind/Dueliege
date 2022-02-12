@@ -10,6 +10,7 @@ function PlaceImg(cellId, media, skew){
 
     let anim = document.createElement('img');
     anim.classList.add('anim');
+    anim.classList.add(cellId);
     anim.style.position = 'absolute';
     anim.style.left = 48*coords[1]+'px';
     anim.style.top = 28*coords[0]+'px';
@@ -35,6 +36,9 @@ function Lift(cellId, level, speed, startlevel) {
         return
     }
     for(let cell in cells){
+        if (!cells[cell]){
+            continue
+        }
         let optiLiftParams = level+'_'+speed+'_'+startlevel; //Параметры
         if(!optiLift.hasOwnProperty([optiLiftParams])){//optilift.
             
@@ -44,7 +48,6 @@ function Lift(cellId, level, speed, startlevel) {
             
             let style = document.createElement('style');
             style.type = 'text/css';
-            document.getElementsByTagName('head')[0].appendChild(style);
 
             let keyFrames = '\
             @-webkit-keyframes lift'+optiLiftCounter+' {\
@@ -64,10 +67,11 @@ function Lift(cellId, level, speed, startlevel) {
                 }\
             }';
             style.innerHTML = keyFrames;
+            document.getElementsByTagName('head')[0].appendChild(style);
 
-            cells[cell].style.animation = 'lift'+optiLiftCounter+' '+speed+'s forwards 1';
+            cells[cell].style.animation = 'lift'+optiLiftCounter+' '+speed+'s 1';
         }else{
-            cells[cell].style.animation = 'lift'+optiLift[optiLiftParams]+' '+speed+'s forwards 1';
+            cells[cell].style.animation = 'lift'+optiLift[optiLiftParams]+' '+speed+'s 1';
         }
         // setTimeout(() => {
         //     cell.style.transform = 'translate('+level+'px, '+level*1.7+'px)';

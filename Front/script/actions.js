@@ -17,7 +17,7 @@ function ExplosionWave(cellId){
 
                 setTimeout(() => {
                     Lift((Number(cell[0])+b)+'-'+(Number(cell[1])+a), 0, 1, 20);
-                }, (Math.abs(a)+Math.abs(b))*100+1050);
+                }, (Math.abs(a)+Math.abs(b))*100+1000);
             }
         }
     }
