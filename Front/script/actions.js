@@ -25,5 +25,6 @@ function ExplosionWave(cellId){
 function Walk(cellId, subject) {
     start = subject.split('-');
     end = cellId.split('-');
-    alert(subject);
+    // alert(subject);
+    MovePlayer(subject, 1);
 }

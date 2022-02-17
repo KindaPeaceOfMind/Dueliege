@@ -79,3 +79,42 @@ function Lift(cellId, level, speed, startlevel) {
         // }, speed*(1000));
     }
 }
+/**
+ * Передвигает игрока на одну клетку
+ * @player {'id'} player's id for getElementById
+ * @side {int} side to move
+ */
+function MovePlayer(playerid, side){
+    player = document.getElementById(playerid);
+    player.style.animation = 'move'+side+' ease-in-out 1s 1';
+    console.log(player);
+    console.log(player.style.animation);
+}
+addAnimationsForMovePlayer();
+function addAnimationsForMovePlayer(){
+    let moveArray = [[-1,-1][-1,0][-1,1][0,-1][0,0][0,1][1,-1][1,0][1,1]];
+    for(let side = 1; side<=9; side++){
+        let style = document.createElement('style');
+        style.type = 'text/css';
+
+        let keyFrames = '\
+        @-webkit-keyframes move'+side+' {\
+            0%{\
+                -webkit-transform: translate('+0+'px, '+0+'px);\
+            }\
+            100% {\
+                -webkit-transform: translate('+48*moveArray[side-1][0]+'px, '+24*moveArray[side-1][1]+'px);\
+            }\
+        }\
+        @-moz-keyframes move'+side+' {\
+            0%{\
+                -webkit-transform: translate('+0+'px, '+0+'px);\
+            }\
+            100% {\
+                -webkit-transform: translate('+48*moveArray[side-1][0]+'px, '+24*moveArray[side-1][1]+'px);\
+            }\
+        }';
+        style.innerHTML = keyFrames;
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }
+}
