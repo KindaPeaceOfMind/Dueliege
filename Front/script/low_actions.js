@@ -35,7 +35,7 @@ function Lift(cellId, level, speed, startlevel) {
     if(!cells){
         return
     }
-    for(let cell in cells){
+    for(let cell=0; cell<cells.length; cell++){
         if (!cells[cell]){
             continue
         }
