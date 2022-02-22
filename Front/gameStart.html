@@ -61,6 +61,7 @@ async function start() {
             for(i in urls){
                 let newScript = document.createElement("script");
                 newScript.src = 'script/'+urls[i];
+                newScript.charset="utf-8";
                 newScript.async = false;
                 document.getElementsByClassName('body')[0].appendChild(newScript);
             }

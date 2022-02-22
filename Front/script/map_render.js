@@ -70,93 +70,60 @@ function AttributeGetter(td, mapCell){//Даёт td все атрибуты об
 //Создание стен
 for(let i=0; i<map.sizeY; i++){
     for(let j=0; j<map.sizeX; j++){
-
-		//Ставим спрайт стены на южной границе клетки
 		if(map[map.sizeX*i+j].type == 'wall'){//Если клетка - стена
-			//Ставим спрайт стены на восточной границе клетки
-			if (map[map.sizeX*(i-1)+j].type != 'wall'){//Если севернее нет другой стены
-				let wall1 = document.createElement('div');
-				wall1.style.width = '46px';
-				wall1.style.height = '36px';
-				wall1.style.backgroundColor = 'red';
-				wall1.style.position = 'absolute';
-				wall1.style.left = 48*j-12+'px';
-				wall1.style.top = 28*i-36+'px';
-				wall1.addEventListener('mouseover', ()=>{//Функция для выключения стены при наведении
-					wall1.style.display='none';
-					setTimeout(()=>{wall1.style.display=''},3000);
-				});
-				wall1.id = i+'-'+j+'-wall1';
-				wall1.classList.add('wall1', i+'-'+j);
-
-				table.appendChild(wall1);
-				wall1.addEventListener('click', ClickCell);
-			}
-			if (1){//map[map.sizeX*i+j+1].type != 'wall'){//Если восточнее нет другой стены
-				let wall2 = document.createElement('div');
-				wall2.style.width = '26px';
-				wall2.style.height = '22px';
-				wall2.style.backgroundColor = 'green';
-				wall2.style.position = 'absolute';
-				wall2.style.left = (48*j+22)+'px';
-				wall2.style.top = 28*i-15+'px';
-				wall2.style.transform = 'rotateZ(-90deg) skewX(-58deg)';
-				wall2.id = i+'-'+j+'-wall2';
-				wall2.classList.add('wall2', i+'-'+j);
-
-				table.appendChild(wall2);
-				wall2.addEventListener('click', ClickCell);
-			}
-			if (1){//map[map.sizeX*i+j-1].type != 'wall'){//Если западнее нет другой стены
-				let wall2 = document.createElement('div');
-				wall2.style.width = '26px';
-				wall2.style.height = '22px';
-				wall2.style.backgroundColor = 'green';
-				wall2.style.position = 'absolute';
-				wall2.style.left = (48*j-24)+'px';
-				wall2.style.top = 28*i-15+'px'; 
-				wall2.style.transform = 'rotateZ(-90deg) skewX(-58deg)';
-				wall2.id = i+'-'+j+'-wall2';
-				wall2.classList.add('wall2', i+'-'+j);
-
-				table.appendChild(wall2);
-				wall2.addEventListener('click', ClickCell);
-			}
-			if (1){
-				let wall1 = document.createElement('div');
-				wall1.style.width = '46px';
-				wall1.style.height = '36px';
-				wall1.style.backgroundColor = 'red';
-				wall1.style.position = 'absolute';
-				wall1.style.left = 48*j-12+'px';
-				wall1.style.top = 28*i-8+'px'; 
-				wall1.id = i+'-'+j+'-wall1';
-				wall1.classList.add('wall1', i+'-'+j);
-
-				table.appendChild(wall1);
-				wall1.addEventListener('click', ClickCell);
-			}
-			if (1){//Потолок
-				let wall2 = document.createElement('div');
-				wall2.style.width = '28px';
-				wall2.style.height = '46px';
-				wall2.style.backgroundColor = 'green';
-				wall2.style.position = 'absolute';
-				wall2.style.left = (48*j-14)+'px';
-				wall2.style.top = 28*i-45+'px';
-				wall2.style.transform = 'rotateZ(-90deg)';
-
-				wall2.addEventListener('mouseover', ()=>{//Функция для выключения стены при наведении
-					if (map[map.sizeX*(i-1)+j].type != 'wall'){
-						wall2.style.display='none';
-						setTimeout(()=>{wall2.style.display=''},1000);
-					}
-				});
-				wall2.classList.add('wall2', i+'-'+j);
-
-				table.appendChild(wall2);
-				wall2.addEventListener('click', ClickCell);
-			}
+			WallCreate(i,j,'StoneBricks.png')
 		}
 	}
+}
+
+/**
+ * Создаёт стены и потолок на клетке по координатам y-x
+ * с текстурой image
+ */
+function WallCreate(y,x,image) {
+	//Восток
+	let wall1 = document.createElement('div');
+	wall1.style.width = '26px';
+	wall1.style.height = '22px';
+	wall1.style.backgroundImage = 'url("media/sprites/objects/walls/'+image+'")';
+	wall1.style.position = 'absolute';
+	wall1.style.left = (48*x+22)+'px';
+	wall1.style.top = 28*y-15+'px';
+	wall1.style.transform = 'rotateZ(-90deg) skewX(-58deg)';
+	wall1.id = x+'-'+y+'-wall1';
+	wall1.classList.add('wall1', x+'-'+y);
+	table.appendChild(wall1);
+	wall1.addEventListener('click', ClickCell);
+	//Юг
+	let wall2 = document.createElement('div');
+	wall2.style.width = '46px';
+	wall2.style.height = '36px';
+	wall2.style.backgroundImage = 'url("media/sprites/objects/walls/'+image+'")';
+	wall2.style.position = 'absolute';
+	wall2.style.left = 48*x-12+'px';
+	wall2.style.top = 28*y-8+'px';
+	wall2.id = y+'-'+x+'-wall2';
+	wall2.classList.add('wall2', x+'-'+y);
+	table.appendChild(wall2);
+	wall2.addEventListener('click', ClickCell);
+	//Крыша
+	let wall3 = document.createElement('div');
+	wall3.style.width = '28px';
+	wall3.style.height = '46px';
+	wall3.style.backgroundImage = 'url("media/sprites/objects/walls/'+image+'")';
+	wall3.style.position = 'absolute';
+	wall3.style.left = (48*x-14)+'px';
+	wall3.style.top = 28*y-45+'px';
+	wall3.style.transform = 'rotateZ(-90deg)';
+	//Функция для выключения на секунду при наведении
+	wall3.addEventListener('mouseover', ()=>{
+		if (map[map.sizeX*(y-1)+x].type != 'wall'){
+			wall3.style.display='none';
+			setTimeout(()=>{wall3.style.display=''},1000);
+		}
+	});
+	wall3.id = x+'-'+y+'-wall3';
+	wall3.classList.add('wall3', x+'-'+y);
+	table.appendChild(wall3);
+	wall3.addEventListener('click', ClickCell);	
 }

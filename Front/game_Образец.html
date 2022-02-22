@@ -55,6 +55,7 @@ async function start() {
                 if(i==7){break;}
                 let newScript = document.createElement("script");
                 newScript.src = 'script/'+urls[i];
+                newScript.charset="utf-8";
                 newScript.async = false;
                 document.getElementsByClassName('body')[0].appendChild(newScript);
             }

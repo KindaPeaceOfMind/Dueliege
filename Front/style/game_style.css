@@ -21,12 +21,12 @@ table{
 td{
     height: 28px;
     border: 1px solid #c4ff0148;
-    background-image: url(../media/sprites/objects/walls/Кирп-кам-стена1.png);
+    background-image: url(../media/sprites/objects/walls/StoneBricks1.png);
     background-size: 524px;
     transform: translate(0,0);
     z-index: 1;
 }
-table td:hover, .wall1:hover, .wall2:hover{
+td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
     cursor: pointer;
     border-color: aqua;
 }
@@ -36,13 +36,7 @@ table td:hover, .wall1:hover, .wall2:hover{
 .skills{
     z-index: 3;
 }
-/*Первая стена*/
-[img=img1]{
-    background-image: none;
-    background-color: black;
-}
-.wall1,.wall2{
+.wall1,.wall2,.wall3{
     transform: skewX(32deg);
-    background-image: url("../media/sprites/objects/walls/Кирп-кам-стена.png");
     border: 1px solid #c4ff0148;
 }
