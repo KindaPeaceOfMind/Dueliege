@@ -73,7 +73,56 @@ for(let i=0; i<map.sizeY; i++){
 
 		//Ставим спрайт стены на южной границе клетки
 		if(map[map.sizeX*i+j].type == 'wall'){//Если клетка - стена
-			if (map[map.sizeX*(i+1)+j].type != 'wall'){//Если южнее нет другой стены
+			//Ставим спрайт стены на восточной границе клетки
+			if (map[map.sizeX*(i-1)+j].type != 'wall'){//Если севернее нет другой стены
+				let wall1 = document.createElement('div');
+				wall1.style.width = '46px';
+				wall1.style.height = '36px';
+				wall1.style.backgroundColor = 'red';
+				wall1.style.position = 'absolute';
+				wall1.style.left = 48*j-12+'px';
+				wall1.style.top = 28*i-36+'px';
+				wall1.addEventListener('mouseover', ()=>{//Функция для выключения стены при наведении
+					wall1.style.display='none';
+					setTimeout(()=>{wall1.style.display=''},3000);
+				});
+				wall1.id = i+'-'+j+'-wall1';
+				wall1.classList.add('wall1', i+'-'+j);
+
+				table.appendChild(wall1);
+				wall1.addEventListener('click', ClickCell);
+			}
+			if (1){//map[map.sizeX*i+j+1].type != 'wall'){//Если восточнее нет другой стены
+				let wall2 = document.createElement('div');
+				wall2.style.width = '26px';
+				wall2.style.height = '22px';
+				wall2.style.backgroundColor = 'green';
+				wall2.style.position = 'absolute';
+				wall2.style.left = (48*j+22)+'px';
+				wall2.style.top = 28*i-15+'px';
+				wall2.style.transform = 'rotateZ(-90deg) skewX(-58deg)';
+				wall2.id = i+'-'+j+'-wall2';
+				wall2.classList.add('wall2', i+'-'+j);
+
+				table.appendChild(wall2);
+				wall2.addEventListener('click', ClickCell);
+			}
+			if (1){//map[map.sizeX*i+j-1].type != 'wall'){//Если западнее нет другой стены
+				let wall2 = document.createElement('div');
+				wall2.style.width = '26px';
+				wall2.style.height = '22px';
+				wall2.style.backgroundColor = 'green';
+				wall2.style.position = 'absolute';
+				wall2.style.left = (48*j-24)+'px';
+				wall2.style.top = 28*i-15+'px'; 
+				wall2.style.transform = 'rotateZ(-90deg) skewX(-58deg)';
+				wall2.id = i+'-'+j+'-wall2';
+				wall2.classList.add('wall2', i+'-'+j);
+
+				table.appendChild(wall2);
+				wall2.addEventListener('click', ClickCell);
+			}
+			if (1){
 				let wall1 = document.createElement('div');
 				wall1.style.width = '46px';
 				wall1.style.height = '36px';
@@ -87,17 +136,22 @@ for(let i=0; i<map.sizeY; i++){
 				table.appendChild(wall1);
 				wall1.addEventListener('click', ClickCell);
 			}
-			//Ставим спрайт стены на восточной границе клетки
-			if (map[map.sizeX*i+j+1].type != 'wall'){//Если восточнее нет другой стены
+			if (1){//Потолок
 				let wall2 = document.createElement('div');
-				wall2.style.width = '26px';
-				wall2.style.height = '22px';
+				wall2.style.width = '28px';
+				wall2.style.height = '46px';
 				wall2.style.backgroundColor = 'green';
 				wall2.style.position = 'absolute';
-				wall2.style.left = (48*j+22)+'px';
-				wall2.style.top = 28*i-15+'px'; 
-				wall2.style.transform = 'rotateZ(-90deg) skewX(-58deg)';
-				wall2.id = i+'-'+j+'-wall2';
+				wall2.style.left = (48*j-14)+'px';
+				wall2.style.top = 28*i-45+'px';
+				wall2.style.transform = 'rotateZ(-90deg)';
+
+				wall2.addEventListener('mouseover', ()=>{//Функция для выключения стены при наведении
+					if (map[map.sizeX*(i-1)+j].type != 'wall'){
+						wall2.style.display='none';
+						setTimeout(()=>{wall2.style.display=''},1000);
+					}
+				});
 				wall2.classList.add('wall2', i+'-'+j);
 
 				table.appendChild(wall2);
