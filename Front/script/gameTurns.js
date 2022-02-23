@@ -45,11 +45,11 @@ async function fetcher(url,body){
 async function ClickChangeTurn(){
     await turnPoster(sessionParams.login, 'p0', 'ChangeTurn', '0-0');
     ChangeTurn();
-    ShowSkills();
 }
 function ChangeTurn(){
     yourTurn = !yourTurn;
     if(!yourTurn){
+        ShowSkills();
         turnGetter(turn);
     }
 }

@@ -16,15 +16,9 @@ document.getElementsByClassName('body')[0].appendChild(skillMenu);
 
 //При щелчке на персонажа отображаются его скиллы
 function ShowSkills(player){
-	skillMenu = document.getElementsByClassName('skillMenu')[0];
-	skillMenu.innerHTML='<svg width="325" height="505">'+
-		'<linearGradient id="linear-gradient">'+
-			'<stop offset="0%" stop-color="gold"/>'+
-			'<stop offset="100%" stop-color="teal"/>'+
-		'</linearGradient>'+
-		'<polygon points="4,5 305,5 4,488" fill="orange" stroke="red" stroke-width="5"></polygon>'+
-	'</svg>';
-	
+	while(pastSkill = document.getElementsByClassName('skills')[0]){
+		pastSkill.outerHTML='';
+	}
 	if(player){
 		if(yourTurn){
 			let div = document.createElement('div');
@@ -55,7 +49,7 @@ function ShowSkills(player){
 
 			i++;
 		}
-		if(player.team == sessionParams.login&&yourTurn){
+		if(player.team == sessionParams.login && yourTurn){
 			i = 0;
 			for (skill in player.playerStats.skills){
 				let div = document.createElement('div');

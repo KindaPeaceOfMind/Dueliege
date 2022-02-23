@@ -25,6 +25,7 @@
 let sessionParams = {}
 
 async function start() {
+    document.getElementsByClassName('body')[0].innerHTML='';
     let checkedRadio = 0;
     let radios = document.getElementsByName("skills");
     for (let radio of radios) {
