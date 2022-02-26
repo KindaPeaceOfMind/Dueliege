@@ -86,19 +86,16 @@ function Lift(cellId, level, speed, startlevel) {
  */
 function MovePlayer(playerid, side){
     player = document.getElementById(playerid);
-    player.style.animation = 'move'+side+' ease-in-out 1s 1';
-    console.log(player);
-    console.log(player.style.animation);
+    player.style.animation = 'move_'+side[0]+'_'+side[1]+' ease-in-out 0.5s 1';
 }
-addAnimationsForMovePlayer();
-function addAnimationsForMovePlayer(){
-    let moveArray = [[-1,-1][-1,0][-1,1][0,-1][0,0][0,1][1,-1][1,0][1,1]];
+InitAnimationsForMovePlayer();
+function InitAnimationsForMovePlayer(){
+    let moveArray = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,0],[0,1],[1,-1],[1,0],[1,1]];
     for(let side = 1; side<=9; side++){
         let style = document.createElement('style');
         style.type = 'text/css';
-
         let keyFrames = '\
-        @-webkit-keyframes move'+side+' {\
+        @-webkit-keyframes move_'+moveArray[side-1][0]+'_'+moveArray[side-1][1]+' {\
             0%{\
                 -webkit-transform: translate('+0+'px, '+0+'px);\
             }\
@@ -106,7 +103,7 @@ function addAnimationsForMovePlayer(){
                 -webkit-transform: translate('+48*moveArray[side-1][0]+'px, '+24*moveArray[side-1][1]+'px);\
             }\
         }\
-        @-moz-keyframes move'+side+' {\
+        @-moz-keyframes move'+moveArray[side-1]+' {\
             0%{\
                 -webkit-transform: translate('+0+'px, '+0+'px);\
             }\
