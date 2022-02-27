@@ -32,9 +32,14 @@ function ActionPerformer(cellId) {
 function ClickHero(){
     ShowSkills(this);
     if(yourTurn){
-        actionSubject = this.id
+        actionSubject = this.id;
     }
 }
 function ClickSkill(){//Преобразование номера скилла в событие для ClickCell
 	action = this.value;
+    switch (action) {
+        case 'Walk':
+            WalkTrajectory(actionSubject);
+        break;
+    }
 }

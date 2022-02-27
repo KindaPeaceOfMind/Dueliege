@@ -54,6 +54,7 @@ for (let i = 0; i < map.sizeY; i++)//Строка
 		td.id = i + "-" + j; //ID i-j
 		td.classList.add(i + "-" + j);
 		td.addEventListener('click', ClickCell);
+		td.addEventListener('mouseover', CellMouseHover);
 	}
 	table.appendChild(tr);
 }
@@ -90,10 +91,11 @@ function WallCreate(y,x,image) {
 	wall1.style.left = (48*x+22)+'px';
 	wall1.style.top = 28*y-15+'px';
 	wall1.style.transform = 'rotateZ(-90deg) skewX(-58deg)';
-	wall1.id = x+'-'+y+'-wall1';
-	wall1.classList.add('wall1', x+'-'+y);
+	wall1.id = y+'-'+x+'-wall1';
+	wall1.classList.add(y+'-'+x,'wall1');
 	table.appendChild(wall1);
 	wall1.addEventListener('click', ClickCell);
+	wall1.addEventListener('mouseover', CellMouseHover);
 	//Юг
 	let wall2 = document.createElement('div');
 	wall2.style.width = '46px';
@@ -103,9 +105,10 @@ function WallCreate(y,x,image) {
 	wall2.style.left = 48*x-12+'px';
 	wall2.style.top = 28*y-8+'px';
 	wall2.id = y+'-'+x+'-wall2';
-	wall2.classList.add('wall2', x+'-'+y);
+	wall2.classList.add(y+'-'+x,'wall2');
 	table.appendChild(wall2);
 	wall2.addEventListener('click', ClickCell);
+	wall2.addEventListener('mouseover', CellMouseHover);
 	//Крыша
 	let wall3 = document.createElement('div');
 	wall3.style.width = '28px';
@@ -122,8 +125,9 @@ function WallCreate(y,x,image) {
 			setTimeout(()=>{wall3.style.display=''},1000);
 		}
 	});
-	wall3.id = x+'-'+y+'-wall3';
-	wall3.classList.add('wall3', x+'-'+y);
+	wall3.id = y+'-'+x+'-wall3';
+	wall3.classList.add(y+'-'+x,'wall3');
 	table.appendChild(wall3);
-	wall3.addEventListener('click', ClickCell);	
+	wall3.addEventListener('click', ClickCell);
+	wall3.addEventListener('mouseover', CellMouseHover);
 }

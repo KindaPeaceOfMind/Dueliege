@@ -82,11 +82,20 @@ function Lift(cellId, level, speed, startlevel) {
 /**
  * Передвигает игрока на одну клетку
  * @player {'id'} player's id for getElementById
- * @side {int} side to move
+ * @side {[1,1]} x+1, y+1
  */
-function MovePlayer(playerid, side){
-    player = document.getElementById(playerid);
-    player.style.animation = 'move_'+side[0]+'_'+side[1]+' ease-in-out 0.5s 1';
+function MovePlayer(player, side){
+    player.style.animation = 'move_'+side[0]+'_'+side[1]+' 0.1s 1';
+    let arr = [];
+    setTimeout(()=>{
+        player.style.animation = '';
+        arr = player.style.left.slice(0, -2);
+        player.style.left = Number(arr)+48*side[0]+'px';
+
+        arr = player.style.top.slice(0, -2);
+        player.style.top = Number(arr)+28*side[1]+'px';
+
+    }, 100);
 }
 InitAnimationsForMovePlayer();
 function InitAnimationsForMovePlayer(){

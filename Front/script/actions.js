@@ -24,9 +24,9 @@ function ExplosionWave(cellId){
 }
 function Walk(cellId, subjectId) {
     let subject = document.getElementById(subjectId);
-    start = subjectId.split('-');//Нужно вести траекторию от игрока, и, в случае касания стены, завершать
-    end = cellId.split('-');
-    MovePlayer(subjectId, [-1,1]);
-    subject.style.left += 48*1;
-    subject.style.top += 28*1;//добавить пиксели и переменные
+    MovePlayer(subject, [-1,1]);
+    // start = subjectId.split('-');//Нужно вести траекторию от игрока, и, в случае касания стены, завершать
+    // end = cellId.split('-');
+    // subject.style.left += 48*1;
+    // subject.style.top += 28*1;//добавить пиксели и переменные
 }

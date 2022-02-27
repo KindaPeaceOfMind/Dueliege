@@ -44,6 +44,7 @@ async function start() {
             'actions.js',
             'click_Events.js',
             'game_interface.js',
+            'map_mouse_hover.js',
             'map_render.js',
             'map_scroller.js',
             'player_render.js',
@@ -52,7 +53,7 @@ async function start() {
         function InsertGameUrls(){
             document.getElementsByClassName('body')[0].innerHTML = '<link rel="stylesheet" href="style/game_style.css">';
             for(i in urls){
-                if(i==7){break;}
+                if(urls[i]=='gameTurns.js'){continue}
                 let newScript = document.createElement("script");
                 newScript.src = 'script/'+urls[i];
                 newScript.charset="utf-8";
