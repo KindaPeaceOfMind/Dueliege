@@ -41,6 +41,11 @@ for(let i=1; i<map.sizeY-1; i++){
 ///Рендер карты с атрибутами     //строка-столб
 let body = document.querySelector('.body');
 let table = document.createElement('table');
+
+let tableEffects = document.createElement('div');//div для эффектов на таблице
+tableEffects.classList.add('tableEffects');
+table.appendChild(tableEffects);
+
 for (let i = 0; i < map.sizeY; i++)//Строка
 {
 	let tr = document.createElement('tr');

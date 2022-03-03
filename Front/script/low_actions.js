@@ -81,46 +81,73 @@ function Lift(cellId, level, speed, startlevel) {
 }
 /**
  * Передвигает игрока на одну клетку
- * @player {'id'} player's id for getElementById
- * @side {[1,1]} x+1, y+1
+ * @player 'id' player's id for getElementById
+ * @side [1,1] x+1, y+1
  */
 function MovePlayer(player, side){
-    player.style.animation = 'move_'+side[0]+'_'+side[1]+' 0.1s 1';
+    let speed = 0.1; //0.1sec
+    player.style.animation = 'move_'+side[1]+'_'+side[0]+' '+speed+'s 1';
     let arr = [];
     setTimeout(()=>{
         player.style.animation = '';
         arr = player.style.left.slice(0, -2);
-        player.style.left = Number(arr)+48*side[0]+'px';
+        player.style.left = Number(arr)+48*side[1]+'px';
 
         arr = player.style.top.slice(0, -2);
-        player.style.top = Number(arr)+28*side[1]+'px';
+        player.style.top = Number(arr)+28*side[0]+'px';
 
-    }, 100);
+    }, speed*1000);
 }
 InitAnimationsForMovePlayer();
 function InitAnimationsForMovePlayer(){
     let moveArray = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,0],[0,1],[1,-1],[1,0],[1,1]];
-    for(let side = 1; side<=9; side++){
+    for(let side = 0; side<9; side++){
         let style = document.createElement('style');
         style.type = 'text/css';
         let keyFrames = '\
-        @-webkit-keyframes move_'+moveArray[side-1][0]+'_'+moveArray[side-1][1]+' {\
+        @-webkit-keyframes move_'+moveArray[side][1]+'_'+moveArray[side][0]+' {\
             0%{\
                 -webkit-transform: translate('+0+'px, '+0+'px);\
             }\
             100% {\
-                -webkit-transform: translate('+48*moveArray[side-1][0]+'px, '+24*moveArray[side-1][1]+'px);\
+                -webkit-transform: translate('+48*moveArray[side][1]+'px, '+24*moveArray[side][0]+'px);\
             }\
         }\
-        @-moz-keyframes move'+moveArray[side-1]+' {\
+        @-moz-keyframes move_'+moveArray[side][1]+'_'+moveArray[side][0]+' {\
             0%{\
                 -webkit-transform: translate('+0+'px, '+0+'px);\
             }\
             100% {\
-                -webkit-transform: translate('+48*moveArray[side-1][0]+'px, '+24*moveArray[side-1][1]+'px);\
+                -webkit-transform: translate('+48*moveArray[side][1]+'px, '+24*moveArray[side][0]+'px);\
             }\
         }';
         style.innerHTML = keyFrames;
         document.getElementsByTagName('head')[0].appendChild(style);
     }
+}
+/**
+ * @start 'y-x'
+ * @end 'y-x'
+ * @возвращает [...[-1,-1], [-1,0]]
+ */
+function WalkComputing(start,end){
+    start = start.split('-');// [y,x]
+    end = end.split('-');// [y,x]
+
+    let y = start[0]-end[0];
+    let x = start[1]-end[1];
+    let turn = [];
+
+    while(y!=0 || x!=0){
+        let part = [];
+
+        part.push(Math.sign(y));
+        y -= part[0];
+
+        part.push(Math.sign(x));
+        x -= part[1];
+
+        turn.push(part);
+    }
+    return turn
 }

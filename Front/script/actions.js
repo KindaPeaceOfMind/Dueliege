@@ -22,11 +22,11 @@ function ExplosionWave(cellId){
         }
     }
 }
-function Walk(cellId, subjectId) {
-    let subject = document.getElementById(subjectId);
-    MovePlayer(subject, [-1,1]);
-    // start = subjectId.split('-');//Нужно вести траекторию от игрока, и, в случае касания стены, завершать
-    // end = cellId.split('-');
-    // subject.style.left += 48*1;
-    // subject.style.top += 28*1;//добавить пиксели и переменные
+function Walk(cellId, subject) {
+    let turn = WalkComputing(cellId, subject.classList[0]);
+    while(turn){
+        MovePlayer(subject, turn[0]);
+        turn.shift()
+    }
+    subject.classList[0] = cellId;
 }
