@@ -42,9 +42,6 @@ for(let i=1; i<map.sizeY-1; i++){
 let body = document.querySelector('.body');
 let table = document.createElement('table');
 
-let tableEffects = document.createElement('div');//div для эффектов на таблице
-tableEffects.classList.add('tableEffects');
-table.appendChild(tableEffects);
 
 for (let i = 0; i < map.sizeY; i++)//Строка
 {
@@ -52,14 +49,18 @@ for (let i = 0; i < map.sizeY; i++)//Строка
 	for (let j = 0; j < map.sizeX; j++)//Столбец
 	{
 		let td = document.createElement('td');
-		
-		AttributeGetter(td, map[i*map.sizeX+j]);//Запихнули в каждый td атрибуты полученной карты
-
-		tr.appendChild(td);
-		td.id = i + "-" + j; //ID i-j
+		td.id = i + "-" + j; //ID y-x
 		td.classList.add(i + "-" + j);
 		td.addEventListener('click', ClickCell);
 		td.addEventListener('mouseover', CellMouseHover);
+		tr.appendChild(td);
+
+		AttributeGetter(td, map[i*map.sizeX+j]);//Запихнули в каждый td атрибуты полученной карты
+			function AttributeGetter(td, mapCell){//Даёт td все атрибуты объекта mapCell
+				for(attr in mapCell){
+					td.setAttribute(attr, mapCell[attr]);
+				}
+			}
 	}
 	table.appendChild(tr);
 }
@@ -67,11 +68,15 @@ body.appendChild(table);
 //Создали таблицу в HTML
 //Клетка = {type, img [, поверхность, баффы, ловушки, ...]}
 
-function AttributeGetter(td, mapCell){//Даёт td все атрибуты объекта mapCell
-	for(attr in mapCell){
-		td.setAttribute(attr, mapCell[attr]);
-	}
-}
+
+let tableEffects = document.createElement('div');//div для эффектов на таблице
+tableEffects.classList.add('tableEffects');
+table.appendChild(tableEffects);
+
+let hoverEffects = document.createElement('div');
+hoverEffects.classList.add('hoverEffects');
+tableEffects.appendChild(hoverEffects);
+
 
 //Создание стен
 for(let i=0; i<map.sizeY; i++){

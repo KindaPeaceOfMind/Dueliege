@@ -81,22 +81,29 @@ function Lift(cellId, level, speed, startlevel) {
 }
 /**
  * Передвигает игрока на одну клетку
- * @player 'id' player's id for getElementById
- * @side [1,1] x+1, y+1
+ * @player player-object-div
+ * @side [1,1] y+1, x+1
  */
-function MovePlayer(player, side){
-    let speed = 0.1; //0.1sec
-    player.style.animation = 'move_'+side[1]+'_'+side[0]+' '+speed+'s 1';
-    let arr = [];
-    setTimeout(()=>{
-        player.style.animation = '';
-        arr = player.style.left.slice(0, -2);
-        player.style.left = Number(arr)+48*side[1]+'px';
-
-        arr = player.style.top.slice(0, -2);
-        player.style.top = Number(arr)+28*side[0]+'px';
-
-    }, speed*1000);
+async function MovePlayer(player, side){
+    let speed = 0.1; //sec
+    let playerPosition = player.classList[0].split('-');
+    let y = Number(playerPosition[0])+side[0];
+    let x = Number(playerPosition[1])+side[1];
+    if(document.getElementsByClassName(y+'-'+x)[0].getAttribute('type') == 'wall'){
+        return false
+    }
+    player.style.animation = 'move_'+side[1]+'_'+side[0]+' '+speed+'s 0';
+    
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            player.style.left = 48*x+'px';
+            player.style.top  = 28*y+'px';
+            player.style.animation = '';
+            player.classList = y+'-'+x;
+            resolve(true);
+        }, speed*2200)
+      });
+    
 }
 InitAnimationsForMovePlayer();
 function InitAnimationsForMovePlayer(){

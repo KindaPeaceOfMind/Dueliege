@@ -1,9 +1,12 @@
 let action = 0;
 let actionSubject = false;
 function ClickCell(){
-    ShowSkills()
+    let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
+    hoverEffects.innerHTML = '';
+    hoverPLayerPosition = false;
+    ShowSkills();
     if(action){
-        ActionPerformer(this.id);
+        ActionPerformer(this.classList[0]);
         turnPoster(sessionParams.login, actionSubject, action, this.id)
     }
     action = 0;

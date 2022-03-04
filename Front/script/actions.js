@@ -22,11 +22,11 @@ function ExplosionWave(cellId){
         }
     }
 }
-function Walk(cellId, subject) {
+async function Walk(cellId, subject) {
     let turn = WalkComputing(cellId, subject.classList[0]);
-    while(turn){
-        MovePlayer(subject, turn[0]);
-        turn.shift()
+    // for(let i=0; i<turn.length && MovePlayer(subject, turn[i]); i++){}
+    let checkWall = true;
+    for(let i=0; i<turn.length && checkWall; i++){
+        checkWall = await MovePlayer(subject, turn[i]);
     }
-    subject.classList[0] = cellId;
 }

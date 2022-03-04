@@ -40,3 +40,11 @@ td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
     transform: skewX(32deg);
     border: 1px solid #c4ff0148;
 }
+.playerStep{
+    position: absolute;
+    height: 19px;
+    width: 28px;
+    border-radius: 13px;
+    background: #040;
+    
+}
