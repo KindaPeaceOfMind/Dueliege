@@ -51,7 +51,10 @@ async function start() {
             'gameTurns.js',
         ];
         function InsertGameUrls(){
-            document.getElementsByClassName('body')[0].innerHTML = '<link rel="stylesheet" href="style/game_style.css">';
+            document.getElementsByClassName('body')[0].innerHTML = '\
+                <link rel="stylesheet" href="style/game_style.css">\
+                <link rel="stylesheet" href="style/walk.css">\
+            ';
             for(i in urls){
                 if(urls[i]=='gameTurns.js'){continue}
                 let newScript = document.createElement("script");

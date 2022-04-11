@@ -52,14 +52,17 @@ async function start() {
             'actions.js',
             'click_Events.js',
             'game_interface.js',
+            'map_mouse_hover.js',
             'map_render.js',
             'map_scroller.js',
             'player_render.js',
             'gameTurns.js',
-            'map_mouse_hover.js',
         ];
         function InsertGameUrls(){
-            document.getElementsByClassName('body')[0].innerHTML = '<link rel="stylesheet" href="style/game_style.css">';
+            document.getElementsByClassName('body')[0].innerHTML = '\
+                <link rel="stylesheet" href="style/game_style.css">\
+                <link rel="stylesheet" href="style/walk.css">\
+            ';            
             for(i in urls){
                 let newScript = document.createElement("script");
                 newScript.src = 'script/'+urls[i];

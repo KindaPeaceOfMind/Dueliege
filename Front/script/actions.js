@@ -24,7 +24,6 @@ function ExplosionWave(cellId){
 }
 async function Walk(cellId, subject) {
     let turn = WalkComputing(cellId, subject.classList[0]);
-    // for(let i=0; i<turn.length && MovePlayer(subject, turn[i]); i++){}
     let checkWall = true;
     for(let i=0; i<turn.length && checkWall; i++){
         checkWall = await MovePlayer(subject, turn[i]);

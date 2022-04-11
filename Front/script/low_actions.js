@@ -89,48 +89,31 @@ async function MovePlayer(player, side){
     let playerPosition = player.classList[0].split('-');
     let y = Number(playerPosition[0])+side[0];
     let x = Number(playerPosition[1])+side[1];
+
+    
+
+    document.documentElement.style.setProperty('--walking-top-start', (-side[0]+y)*28+'px');
+    document.documentElement.style.setProperty('--walking-left-start',(-side[1]+x)*48+'px');
+
+    document.documentElement.style.setProperty('--walking-top', 28*y+'px');
+    document.documentElement.style.setProperty('--walking-left', 48*x+'px');
+
     if(document.getElementsByClassName(y+'-'+x)[0].getAttribute('type') == 'wall'){
         return false
     }
-    player.style.animation = 'move_'+side[1]+'_'+side[0]+' '+speed+'s 0';
+    player.style.animation = 'walking '+speed+'s 1 forwards';
     
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             player.style.left = 48*x+'px';
             player.style.top  = 28*y+'px';
             player.style.animation = '';
+            player.offsetHeight;//перерендер
             player.classList = y+'-'+x;
             resolve(true);
-        }, speed*2200)
+        }, speed*1600)
       });
     
-}
-InitAnimationsForMovePlayer();
-function InitAnimationsForMovePlayer(){
-    let moveArray = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,0],[0,1],[1,-1],[1,0],[1,1]];
-    for(let side = 0; side<9; side++){
-        let style = document.createElement('style');
-        style.type = 'text/css';
-        let keyFrames = '\
-        @-webkit-keyframes move_'+moveArray[side][1]+'_'+moveArray[side][0]+' {\
-            0%{\
-                -webkit-transform: translate('+0+'px, '+0+'px);\
-            }\
-            100% {\
-                -webkit-transform: translate('+48*moveArray[side][1]+'px, '+24*moveArray[side][0]+'px);\
-            }\
-        }\
-        @-moz-keyframes move_'+moveArray[side][1]+'_'+moveArray[side][0]+' {\
-            0%{\
-                -webkit-transform: translate('+0+'px, '+0+'px);\
-            }\
-            100% {\
-                -webkit-transform: translate('+48*moveArray[side][1]+'px, '+24*moveArray[side][0]+'px);\
-            }\
-        }';
-        style.innerHTML = keyFrames;
-        document.getElementsByTagName('head')[0].appendChild(style);
-    }
 }
 /**
  * @start 'y-x'

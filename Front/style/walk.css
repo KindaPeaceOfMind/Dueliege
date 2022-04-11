@@ -1,0 +1,16 @@
+:root{
+    --walking-top : 20px;
+    --walking-left: 20px;
+    --walking-top-start : 20px;
+    --walking-left-start: 20px;
+}
+@keyframes walking {
+    0%{
+        top: var(--walking-top-start);
+        left: var(--walking-left-start);
+    }
+    100%{
+        top: var(--walking-top);
+        left: var(--walking-left);
+    }
+}

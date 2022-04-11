@@ -1,4 +1,6 @@
-*{margin: 0;}
+*{
+    margin: 0;
+}
 html{
     overflow-x: hidden;
 }
@@ -45,6 +47,5 @@ td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
     height: 19px;
     width: 28px;
     border-radius: 13px;
-    background: #040;
-    
+    background: #040;  
 }
