@@ -41,6 +41,10 @@ td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
 .wall1,.wall2,.wall3{
     transform: skewX(32deg);
     border: 1px solid #c4ff0148;
+    z-index: 1;
+}
+.player{
+    transform: skew(30deg, 0deg);
 }
 .playerStep{
     position: absolute;

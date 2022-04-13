@@ -18,7 +18,8 @@ for(playerId in map.PlayersLocation){
     div.style.backgroundColor = 'red';//<<<<<<<<<<<
     div.style.position = 'absolute';
     div.id = playerId;
-    div.classList.add(map.PlayersLocation[playerId][0]+'-'+map.PlayersLocation[playerId][1])
+    div.classList.add(map.PlayersLocation[playerId][0]+'-'+map.PlayersLocation[playerId][1]);
+    div.classList.add('player')
     if(Number(playerId[1])>2){
         div.team = sessionParams.login;
     }else{

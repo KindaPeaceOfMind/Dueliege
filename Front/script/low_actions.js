@@ -92,8 +92,8 @@ async function MovePlayer(player, side){
 
     
 
-    document.documentElement.style.setProperty('--walking-top-start', (-side[0]+y)*28+'px');
-    document.documentElement.style.setProperty('--walking-left-start',(-side[1]+x)*48+'px');
+    document.documentElement.style.setProperty('--walking-top-start', (y-side[0])*28+'px');
+    document.documentElement.style.setProperty('--walking-left-start',(x-side[1])*48+'px');
 
     document.documentElement.style.setProperty('--walking-top', 28*y+'px');
     document.documentElement.style.setProperty('--walking-left', 48*x+'px');
@@ -108,8 +108,9 @@ async function MovePlayer(player, side){
             player.style.left = 48*x+'px';
             player.style.top  = 28*y+'px';
             player.style.animation = '';
+            player.classList.remove(player.classList[0]);
+            player.classList = y+'-'+x+' '+player.classList;
             player.offsetHeight;//перерендер
-            player.classList = y+'-'+x;
             resolve(true);
         }, speed*1600)
       });
