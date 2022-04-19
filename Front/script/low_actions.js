@@ -16,6 +16,10 @@ function PlaceImg(cellId, media, skew){
     anim.style.top = 28*coords[0]+'px';
     anim.style.width = 48+'px';
     anim.style.height = 28+'px';
+    anim.style.zIndex = 1;
+    anim.classList = coords[0]+'-'+coords[1];
+	anim.addEventListener('click', ClickCell);
+	// anim.addEventListener('mouseover', CellMouseHover);
     anim.src = media;
     if(skew){anim.style.transform = 'skewX(32deg)';}
     table.appendChild(anim);
@@ -98,9 +102,16 @@ async function MovePlayer(player, side){
     document.documentElement.style.setProperty('--walking-top', 28*y+'px');
     document.documentElement.style.setProperty('--walking-left', 48*x+'px');
 
-    if(document.getElementsByClassName(y+'-'+x)[0].getAttribute('type') == 'wall'){
-        return false
+    let cell = document.getElementsByClassName(y+'-'+x)
+    let answer = false;
+    for(let i=0; i<cell.length;i++){
+        if(cell[i].classList.contains('player') || cell[i].getAttribute('type') == 'wall'){
+            Attack(player, cell[i]);
+            return false;
+        }
     }
+    
+
     player.style.animation = 'walking '+speed+'s 1 forwards';
     
     return new Promise((resolve, reject) => {
@@ -116,6 +127,31 @@ async function MovePlayer(player, side){
       });
     
 }
+function Attack(player, subj){
+    if(subj.classList.contains('player')){
+        subj.playerStats.hp -= player.playerStats.damage
+        if(subj.playerStats.hp <= 0){
+            subj.outerHTML='';
+        }
+    }else{
+        subj.hp -= player.playerStats.damage
+        if(subj.hp <= 0){
+            DestroyWall(subj.classList[0])
+            // subj.outerHTML='';
+        }
+    }
+}
+function DestroyWall(cellId){
+    let cell = document.getElementsByClassName(cellId);
+    console.log(cell)
+    cell[0].setAttribute('type', '')
+    for(i=1; i<cell.length; i++){
+        cell[i].outerHTML = '';
+        i--;
+    }
+    
+}
+
 /**
  * @start 'y-x'
  * @end 'y-x'

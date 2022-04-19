@@ -9,10 +9,10 @@ map.sizeY = 35;
 
 //Спавн Игроков
 map.PlayersLocation = {
-	'p1':[4,22],
-	'p2':[2,15],
-	'p3':[1,1],
-	'p4':[0,2]
+	'p1':[31,3],
+	'p2':[31,21],
+	'p3':[3,3],
+	'p4':[3,21]
 };
 
 for(let i=0; i<map.sizeY; i++){//Заполнили карту пустотой
@@ -59,6 +59,9 @@ for (let i = 0; i < map.sizeY; i++)//Строка
 			function AttributeGetter(td, mapCell){//Даёт td все атрибуты объекта mapCell
 				for(attr in mapCell){
 					td.setAttribute(attr, mapCell[attr]);
+					if(attr=='type' && mapCell[attr] == 'wall'){
+						td.hp = 10;
+					}
 				}
 			}
 	}

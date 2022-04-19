@@ -201,19 +201,6 @@ app.post('/session', jsonParser, async function (req, res){
   }else{res.json([0,'Сессия не найдена'])}
 })
 
-
-
-app.get('/users', async (req, res) => {
-  const users = await prisma.user.findMany({
-    select: {
-      id:true,
-      login:true,
-      password:true,
-      token:true
-    }
-  })
-  res.json(users)
-})
 app.listen(3000, () => {
     console.log('Application listening on http://localhost:3000');
 });

@@ -5,7 +5,7 @@ function Place(cellId){
 function ExplosionWave(cellId){
     let cell = cellId.split('-');
     //Lift(cellId, 20, 1, 0);
-    r = 10;
+    r = 5;
     for(y=-r; y <= r; y++){
         for(x=-r+Math.abs(y); x<=r-Math.abs(y); x++){
             timeQueue1(x,y);

@@ -1,8 +1,8 @@
-let playerStats = {
-    'hp': 20, 'armor': 10,
-    'stamina': 8, 'mana': 3,
-    'skills': ['Walk','ExplosionWave','Place'], 'buffs': [], 'resists': [],
-    'lvl': 1, 'stats': []
+function PlayerStats(){
+    this.hp = 20,
+    this.damage = 10
+    this.skills = ['Walk','ExplosionWave','Place'],
+    this.buffs = []
 };
 
 // Серверная часть
@@ -17,18 +17,21 @@ for(playerId in map.PlayersLocation){
     div.style.top = 28*map.PlayersLocation[playerId][0]+'px';
     div.style.backgroundColor = 'red';//<<<<<<<<<<<
     div.style.position = 'absolute';
+    div.style.zIndex = 2;
     div.id = playerId;
     div.classList.add(map.PlayersLocation[playerId][0]+'-'+map.PlayersLocation[playerId][1]);
     div.classList.add('player')
-    if(Number(playerId[1])>2){
+    if(Number(playerId[1])>2){//<<<<<<<<<<<
         div.team = sessionParams.login;
+        div.border = '1px solid blue'
     }else{
         div.team = sessionParams.enemy;
+        div.border = '1px solid red'
     }
     table.appendChild(div);
 
     //getplayerStats<<<<<<<<<<<<<<<
-    div.playerStats = playerStats;
+    div.playerStats = new PlayerStats;
 
     div.addEventListener('click', ClickHero);
 }
