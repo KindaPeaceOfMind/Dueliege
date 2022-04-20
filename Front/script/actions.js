@@ -29,3 +29,8 @@ async function Walk(cellId, subject) {
         checkWall = await MovePlayer(subject, turn[i]);
     }
 }
+function Capitulating(){
+    document.getElementsByClassName('body')[0].outerHTML='';
+    alert('Игра закончена');
+    location.reload()
+}

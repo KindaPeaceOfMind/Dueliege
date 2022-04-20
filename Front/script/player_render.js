@@ -1,7 +1,7 @@
 function PlayerStats(){
     this.hp = 20,
     this.damage = 10
-    this.skills = ['Walk','ExplosionWave','Place'],
+    this.skills = ['Walk','ExplosionWave','Place','Capitulating'],
     this.buffs = []
 };
 
@@ -23,10 +23,10 @@ for(playerId in map.PlayersLocation){
     div.classList.add('player')
     if(Number(playerId[1])>2){//<<<<<<<<<<<
         div.team = sessionParams.login;
-        div.border = '1px solid blue'
+        div.setAttribute('border', '1px solid blue');
     }else{
         div.team = sessionParams.enemy;
-        div.border = '1px solid red'
+        div.setAttribute('border', '1px solid red')
     }
     table.appendChild(div);
 

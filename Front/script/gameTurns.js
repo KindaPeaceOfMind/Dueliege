@@ -6,7 +6,7 @@ let yourTurn = false;
 turnGetter(turn);
 
 async function turnPoster(player, hero, action, cell) {
-    let body = [sessionParams.sessionId, turn, player, hero, action, cell];
+    let body = [sessionParams.sessionId, turn, player, hero.id, action, cell];
     let url = '/session';
     let result = await fetcher(url, body);
     turn+=1;
@@ -24,6 +24,7 @@ async function turnGetter(turnToGet) {
         }else{
             turn+=1;
             action = result[1][2]
+            actionSubject = document.getElementById(result[1][1]);
             ActionPerformer(result[1][3]);
             setTimeout(turnGetter, 3000, turn);
         }

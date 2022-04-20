@@ -175,23 +175,28 @@ app.post('/session', jsonParser, async function (req, res){
     }
   })
   if(Session){
-    console.log(input)
+    // console.log(input)
     if(input[2] && input[3] && input[4] && input[5]){//post
       sessionsTurns[input[0]][input[1]] = [input[2], input[3], input[4], input[5]]
       
       console.log("Ход "+input[1]+" добавлен");
-      console.log(sessionsTurns[input[0]][input[1]]);
+      // console.log(sessionsTurns[input[0]][input[1]]);
+
       res.json([1])
     }else{//get
-      if(sessionsTurns[input[0]]){
+      if(sessionsTurns[input[0]]){//Если сессия активна
+        
         if(sessionsTurns[input[0]][input[1]]){
-          console.log("Ход выведен");
-          console.log(sessionsTurns[input[0][input[1]]]);
+          console.log("Ход "+input[1]+" в сессии "+input[0]+" выведен");
+          // console.log(sessionsTurns[input[0][input[1]]]);
           res.json([1,
             sessionsTurns[input[0]][input[1]]
           ])
+          if(sessionsTurns[input[0]][input[1]][2]=='Capitulating'){
+            delete sessionsTurns[input[0]];
+          }
         }else{
-          console.log("Такого хода ещё не было");
+          console.log("хода "+input[1]+" в сессии "+input[0]+" ещё не было");
           res.json([0]);
         }
       }else{

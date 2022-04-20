@@ -132,18 +132,31 @@ function Attack(player, subj){
         subj.playerStats.hp -= player.playerStats.damage
         if(subj.playerStats.hp <= 0){
             subj.outerHTML='';
+            CheckWin();
         }
     }else{
         subj.hp -= player.playerStats.damage
         if(subj.hp <= 0){
             DestroyWall(subj.classList[0])
-            // subj.outerHTML='';
         }
+    }
+}
+function CheckWin() {
+    let players = document.getElementsByClassName('player');
+    let firstTeam = players[0].team;
+    let win = true;
+    for(let i = 1; i<players.length; i++){
+        if(players[i].team != firstTeam){
+            win = false;
+        }
+    }
+    if(win){
+        turnPoster(sessionParams.login, 'Capitulating', 'Capitulating', 'Capitulating')
+        Capitulating();
     }
 }
 function DestroyWall(cellId){
     let cell = document.getElementsByClassName(cellId);
-    console.log(cell)
     cell[0].setAttribute('type', '')
     for(i=1; i<cell.length; i++){
         cell[i].outerHTML = '';
@@ -158,6 +171,10 @@ function DestroyWall(cellId){
  * @возвращает [...[-1,-1], [-1,0]]
  */
 function WalkComputing(start,end){
+    if(!start || !end){
+        alert('Ошибка вычисления')
+        return
+    }
     start = start.split('-');// [y,x]
     end = end.split('-');// [y,x]
 

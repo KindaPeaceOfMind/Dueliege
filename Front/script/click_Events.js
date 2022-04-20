@@ -2,6 +2,9 @@ let action = 0;
 let actionSubject = false;
 
 function ClickCell(){
+    if(!yourTurn){
+        return
+    }
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
     hoverEffects.innerHTML = '';
     hoverPLayerPosition = false;
@@ -29,6 +32,9 @@ function ActionPerformer(cellId) {
         break
         case 'Walk':
             Walk(cellId, actionSubject);
+        break
+        case 'Capitulating':
+            Capitulating();
         break
     }
 }
