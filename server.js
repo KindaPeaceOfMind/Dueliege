@@ -112,9 +112,9 @@ async function SessionCreate(token){//Отдаёт 1, id сессии, логи�
   if(liveSession){
     console.log(login+' переподключился к созданной сессии '+liveSession.id)
     if(liveSession.user1==login){
-      return [1, liveSession.id, login, liveSession.user2]
+      return [1, liveSession.id, login, liveSession.user2, 2]
     }else{
-      return [1, liveSession.id, login, liveSession.user1]
+      return [1, liveSession.id, login, liveSession.user1, 1]
     }
     
   }else{
@@ -135,7 +135,7 @@ async function SessionCreate(token){//Отдаёт 1, id сессии, логи�
         })
                                             /////////////////////////////////Добавить изменение с waiting
         console.log(login+' подключился к сессии '+sessionCheck.id+' как user2 ')
-        return [1, sessionCheck.id, login, sessionCheck.user1]
+        return [1, sessionCheck.id, login, sessionCheck.user1, 1]
       }else{
         await prisma.sessions.update({
           data:{
@@ -147,7 +147,7 @@ async function SessionCreate(token){//Отдаёт 1, id сессии, логи�
         })
                                                       /////////////////////////////////Добавить изменение с waiting
         console.log(login+' подключился к сессии '+sessionCheck.id+' как user1 ')
-        return [1, sessionCheck.id, login, sessionCheck.user2]
+        return [1, sessionCheck.id, login, sessionCheck.user2, 2]
       }
     }else{
       const SessionCreate = await prisma.sessions.create({
@@ -157,7 +157,7 @@ async function SessionCreate(token){//Отдаёт 1, id сессии, логи�
         }
       })
       console.log(login+' создал сессию '+SessionCreate.id)
-      return [1, SessionCreate.id, login, sessionCheck.user2]///////////////////////Добавить второго пользователя
+      return [1, SessionCreate.id, login, sessionCheck.user2, 2]///////////////////////Добавить второго пользователя
     }
   }
 }

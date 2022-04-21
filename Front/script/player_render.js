@@ -21,12 +21,16 @@ for(playerId in map.PlayersLocation){
     div.id = playerId;
     div.classList.add(map.PlayersLocation[playerId][0]+'-'+map.PlayersLocation[playerId][1]);
     div.classList.add('player')
-    if(Number(playerId[1])>2){//<<<<<<<<<<<
+// Number(playerId[1])
+    if(
+        sessionParams.team == 1 && Number(playerId[1])>2 ||
+        sessionParams.team == 2 && Number(playerId[1])<=2
+    ){
         div.team = sessionParams.login;
-        div.setAttribute('border', '1px solid blue');
+        div.style.border = '1px solid blue';
     }else{
         div.team = sessionParams.enemy;
-        div.setAttribute('border', '1px solid red')
+        div.style.border = '1px solid red';
     }
     table.appendChild(div);
 

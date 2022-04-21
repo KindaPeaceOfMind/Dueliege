@@ -5,8 +5,8 @@ let yourTurn = false;
 
 turnGetter(turn);
 
-async function turnPoster(player, hero, action, cell) {
-    let body = [sessionParams.sessionId, turn, player, hero.id, action, cell];
+async function turnPoster(player, heroId, action, cell) {
+    let body = [sessionParams.sessionId, turn, player, heroId, action, cell];
     let url = '/session';
     let result = await fetcher(url, body);
     turn+=1;
@@ -17,6 +17,10 @@ async function turnGetter(turnToGet) {
 
     let result = await fetcher(url,body);
     
+    if(turnToGet==0 && result[0]==1){
+        
+    }
+
     if(result[0]==1){
         if(result[1][2]=='ChangeTurn'){
             turn+=1;
@@ -44,11 +48,13 @@ async function fetcher(url,body){
     return await response.json();
 }
 async function ClickChangeTurn(){
-    await turnPoster(sessionParams.login, 'p0', 'ChangeTurn', '0-0');
+    await turnPoster(sessionParams.login, 'ChangeTurn', 'ChangeTurn', '0-0');
     ChangeTurn();
 }
 function ChangeTurn(){
     yourTurn = !yourTurn;
+    action = false;
+    actionSubject = false;
     if(!yourTurn){
         ShowSkills();
         turnGetter(turn);

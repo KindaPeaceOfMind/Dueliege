@@ -3,6 +3,7 @@ let actionSubject = false;
 
 function ClickCell(){
     if(!yourTurn){
+        alert('Сейчас ход противника')
         return
     }
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
@@ -11,7 +12,7 @@ function ClickCell(){
     ShowSkills();
     if(action){
         ActionPerformer(event.target.classList[0]);
-        turnPoster(sessionParams.login, actionSubject, action, event.target.classList[0])
+        turnPoster(sessionParams.login, actionSubject.id, action, event.target.classList[0])
     }
     action = 0;
     actionSubject = false;
