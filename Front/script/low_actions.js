@@ -96,11 +96,11 @@ async function MovePlayer(player, side){
 
     
 
-    document.documentElement.style.setProperty('--walking-top-start', (y-side[0])*28+'px');
-    document.documentElement.style.setProperty('--walking-left-start',(x-side[1])*48+'px');
+    document.documentElement.style.setProperty('--walking-left-start',(x-side[1])*48-18+'px');
+    document.documentElement.style.setProperty('--walking-top-start', (y-side[0])*28-60+'px');
 
-    document.documentElement.style.setProperty('--walking-top', 28*y+'px');
-    document.documentElement.style.setProperty('--walking-left', 48*x+'px');
+    document.documentElement.style.setProperty('--walking-left', 48*x-18+'px');
+    document.documentElement.style.setProperty('--walking-top',  28*y-60+'px');
 
     let cell = document.getElementsByClassName(y+'-'+x)
     let answer = false;
@@ -116,8 +116,8 @@ async function MovePlayer(player, side){
     
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            player.style.left = 48*x+'px';
-            player.style.top  = 28*y+'px';
+            player.style.left = 48*x-18+'px';
+            player.style.top  = 28*y-60+'px';
             player.style.animation = '';
             player.classList.remove(player.classList[0]);
             player.classList = y+'-'+x+' '+player.classList;

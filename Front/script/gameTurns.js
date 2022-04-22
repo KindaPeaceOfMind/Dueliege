@@ -55,8 +55,15 @@ function ChangeTurn(){
     yourTurn = !yourTurn;
     action = false;
     actionSubject = false;
+        RefreshStamina();
     if(!yourTurn){
         ShowSkills();
         turnGetter(turn);
+    }
+}
+function RefreshStamina(){
+    let players = document.getElementsByClassName('player');
+    for(let i=0; i<players.length; i++){
+        players[i].stamina = players[i].maxStamina;
     }
 }

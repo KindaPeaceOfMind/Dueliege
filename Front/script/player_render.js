@@ -2,7 +2,9 @@ function PlayerStats(){
     this.hp = 20,
     this.damage = 10
     this.skills = ['Walk','ExplosionWave','Place','Capitulating'],
-    this.buffs = []
+    this.radius = 7,
+    this.maxStamina = 8,
+    this.stamina = 8
 };
 
 // Серверная часть
@@ -12,10 +14,14 @@ function PlayerStats(){
 for(playerId in map.PlayersLocation){
     let div = document.createElement('div');
     div.style.width = '46px';
-    div.style.height = '24px';
-    div.style.left = 48*map.PlayersLocation[playerId][1]+'px';
-    div.style.top = 28*map.PlayersLocation[playerId][0]+'px';
-    div.style.backgroundColor = 'red';//<<<<<<<<<<<
+    div.style.height = '86px';
+    div.style.left = 48*map.PlayersLocation[playerId][1]-18+'px';
+    div.style.top = 28*map.PlayersLocation[playerId][0]-60+'px';
+
+    // div.style.backgroundColor = 'red';//<<<<<<<<<<<
+    div.style.background = 'url(media/sprites/players/mage'+Number(playerId[1])+'.png)';
+    div.style.backgroundRepeat = 'no-repeat';
+    div.style.backgroundSize = 'contain';
     div.style.position = 'absolute';
     div.style.zIndex = 2;
     div.id = playerId;
@@ -23,8 +29,8 @@ for(playerId in map.PlayersLocation){
     div.classList.add('player')
 // Number(playerId[1])
     if(
-        sessionParams.team == 1 && Number(playerId[1])>2 ||
-        sessionParams.team == 2 && Number(playerId[1])<=2
+        sessionParams.team == 2 && Number(playerId[1])>2 ||
+        sessionParams.team == 1 && Number(playerId[1])<=2
     ){
         div.team = sessionParams.login;
         div.style.border = '1px solid blue';

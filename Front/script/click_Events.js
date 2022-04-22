@@ -6,6 +6,9 @@ function ClickCell(){
         alert('Сейчас ход противника')
         return
     }
+    if(action!='Walk' && actionSubject && actionSubject.radius < CheckDistance(actionSubject.classList[0], event.target.classList[0])){
+        return
+    }
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
     hoverEffects.innerHTML = '';
     hoverPLayerPosition = false;
@@ -59,4 +62,15 @@ function ClickSkill(){
     hoverEffects.innerHTML = '';
 	action = event.target.value;// Действие для ClickCell
     hoverPLayerPosition = actionSubject.classList[0];
+}
+function CheckDistance(cellId1, cellId2){
+    let start = cellId1.split('-');
+    let end = cellId2.split('-');
+    let y = Math.abs(start[0]) - Math.abs(end[0]);
+    let x = Math.abs(start[1]) - Math.abs(end[1]);
+    if(y>x){
+        return y
+    }else{
+        return x
+    }
 }
