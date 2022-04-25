@@ -9,7 +9,7 @@ function PlaceImg(cellId, media, skew){
     let coords = cellId.split('-');
 
     let anim = document.createElement('img');
-    anim.classList.add('anim');
+    // anim.classList.add('anim');
     anim.classList.add(cellId);
     anim.style.position = 'absolute';
     anim.style.left = 48*coords[1]+'px';
@@ -19,7 +19,7 @@ function PlaceImg(cellId, media, skew){
     anim.style.zIndex = 1;
     anim.classList = coords[0]+'-'+coords[1];
 	anim.addEventListener('click', ClickCell);
-	// anim.addEventListener('mouseover', CellMouseHover);
+	anim.addEventListener('mouseover', CellMouseHover);
     anim.src = media;
     if(skew){anim.style.transform = 'skewX(32deg)';}
     table.appendChild(anim);
@@ -103,7 +103,6 @@ async function MovePlayer(player, side){
     document.documentElement.style.setProperty('--walking-top',  28*y-60+'px');
 
     let cell = document.getElementsByClassName(y+'-'+x)
-    let answer = false;
     for(let i=0; i<cell.length;i++){
         if(cell[i].classList.contains('player') || cell[i].getAttribute('type') == 'wall'){
             Attack(player, cell[i]);
@@ -111,6 +110,7 @@ async function MovePlayer(player, side){
         }
     }
     
+
 
     player.style.animation = 'walking '+speed+'s 1 forwards';
     
@@ -122,11 +122,33 @@ async function MovePlayer(player, side){
             player.classList.remove(player.classList[0]);
             player.classList = y+'-'+x+' '+player.classList;
             player.offsetHeight;//перерендер
+            AddStatuses(player);
             resolve(true);
         }, speed*1600)
-      });
-    
+    });
 }
+/**
+ * Накладывает статусы на игрока в 
+ * зависимости от клетки на которой он стоит
+ * @player obj
+ */
+function AddStatuses(player){
+    cell = document.getElementsByClassName(player.classList[0]);
+    for(let i=0; i<cell.length; i++){
+        switch (cell[i].getAttribute('type')) {
+            case 'fire':
+                player.playerStats.status.fire = '1';//2
+                GetDamage(player.classList[0], 1);
+            break;
+        } 
+    }
+}
+/**
+ * Наносит урон субъекту//игроку, 
+ * равный атаке игрока 
+ * @player obj 
+ * @subj cellId
+ */
 function Attack(player, subj){
     if(subj.classList.contains('player')){
         subj.playerStats.hp -= player.playerStats.damage
@@ -137,7 +159,31 @@ function Attack(player, subj){
     }else{
         subj.hp -= player.playerStats.damage
         if(subj.hp <= 0){
-            DestroyWall(subj.classList[0])
+            ClearCell(subj.classList[0])
+        }
+    }
+}
+/**
+ * Наносит урон субъекту//игроку на клетке, 
+ * равный damage
+ */
+function GetDamage(cellId,damage){
+    let cell = document.getElementsByClassName(cellId);
+    for(let i=0; i<cell.length; i++){
+        if(cell[i].classList.contains('player')){
+            cell[i].playerStats.hp -= damage
+            if(cell[i].playerStats.hp <= 0){
+                cell[i].outerHTML='';
+                CheckWin();
+            }
+            return
+        }
+    }
+    if(cell[0].getAttribute('type')!=''){
+        cell[0].hp -= damage;
+        if(cell[0].hp <= 0){
+            ClearCell(cellId);
+            delete cell[0].hp
         }
     }
 }
@@ -155,16 +201,17 @@ function CheckWin() {
         Capitulating();
     }
 }
-function DestroyWall(cellId){
+/**
+ * Сносит всё ненужное на клетке и присваивает type= ' '
+ */
+function ClearCell(cellId){
     let cell = document.getElementsByClassName(cellId);
     cell[0].setAttribute('type', '')
     for(i=1; i<cell.length; i++){
-        cell[i].outerHTML = '';
+        cell[i].remove();
         i--;
     }
-    
 }
-
 /**
  * @start 'y-x'
  * @end 'y-x'

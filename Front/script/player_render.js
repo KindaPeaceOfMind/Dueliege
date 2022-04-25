@@ -1,10 +1,11 @@
 function PlayerStats(){
     this.hp = 20,
-    this.damage = 10
-    this.skills = ['Walk','ExplosionWave','Place','Capitulating'],
+    this.damage = 6
+    this.skills = ['Walk','ExplosionWave','Capitulating','FireBall'],
     this.radius = 7,
-    this.maxStamina = 8,
-    this.stamina = 8
+    this.maxStamina = 6,
+    this.stamina = 6,
+    this.status = []
 };
 
 // Серверная часть

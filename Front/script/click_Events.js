@@ -34,6 +34,9 @@ function ActionPerformer(cellId) {
         case 'Place':
             Place(cellId);
         break
+        case 'FireBall':
+            FireBall(cellId);
+        break
         case 'Walk':
             Walk(cellId, actionSubject);
         break
@@ -66,8 +69,8 @@ function ClickSkill(){
 function CheckDistance(cellId1, cellId2){
     let start = cellId1.split('-');
     let end = cellId2.split('-');
-    let y = Math.abs(start[0]) - Math.abs(end[0]);
-    let x = Math.abs(start[1]) - Math.abs(end[1]);
+    let y = Math.abs(start[0] - end[0]);
+    let x = Math.abs(start[1] - end[1]);
     if(y>x){
         return y
     }else{

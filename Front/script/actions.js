@@ -5,7 +5,7 @@ function Place(cellId){
 function ExplosionWave(cellId){
     let cell = cellId.split('-');
     //Lift(cellId, 20, 1, 0);
-    r = 5;
+    let r = 5;
     for(y=-r; y <= r; y++){
         for(x=-r+Math.abs(y); x<=r-Math.abs(y); x++){
             timeQueue1(x,y);
@@ -20,6 +20,30 @@ function ExplosionWave(cellId){
                 }, (Math.abs(a)+Math.abs(b))*100+1000);
             }
         }
+    }
+}
+function FireBall(cellId){
+    let cords = cellId.split('-');
+    let massive = [ //+
+        (cords[0])+'-'+(cords[1]), 
+        (cords[0]-1)+'-'+(cords[1]), (Number(cords[0])+1)+'-'+(cords[1]),
+        (cords[0])+'-'+(cords[1]-1), (cords[0])+'-'+(Number(cords[1])+1),
+    ];
+    for(let i=0; i<massive.length; i++){
+        let cell = document.getElementsByClassName(massive[i]);
+         
+        if(cell[0].getAttribute('type')==''){
+            PlaceImg(massive[i], 'media/actions/gifs/fire.gif', true);
+            cell[0].setAttribute('type','fire');
+        }
+
+        
+        for(let j=0; j<cell.length;j++){
+            if(cell[j].classList[1]=='player'){
+                AddStatuses(cell[j])
+            }
+        }   
+        GetDamage(massive[i],2)
     }
 }
 async function Walk(cellId, subject) {

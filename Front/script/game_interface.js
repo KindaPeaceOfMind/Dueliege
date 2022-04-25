@@ -37,7 +37,7 @@ function ShowSkills(player){
 			document.body.appendChild(div);
 		}
 		let i = 0;
-		for (stat in player.playerStats){
+		for (let stat in player.playerStats){
 			let div = document.createElement('div');
 			div.style.textAlignLast = 'left';
 			div.style.top = 15+15*i+'px';
@@ -45,6 +45,13 @@ function ShowSkills(player){
 			div.style.position = 'fixed';
 			div.classList.add('skills');
 			div.innerHTML = stat+': '+player.playerStats[stat];
+			if(stat=='status'){
+				for(let condition in player.playerStats.status){
+					div.innerHTML += condition+': '+player.playerStats.status[condition]
+				}
+			}
+			
+			
 			document.body.appendChild(div);
 
 			i++;

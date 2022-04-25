@@ -25,11 +25,31 @@ for(let i=0; i<map.sizeY; i++){//Заполнили карту пустотой
 //Клетка = {type, img [, поверхность, баффы, ловушки, ...]}
 
 //Создали стенку на 34 строке
-for(let j=1; j<map.sizeX-4; j++){
-	map[map.sizeX*33+j] = {'type':'wall', 'img':'img1'};
+
+function pointWalls(x,y){
+	function wallAtts(){
+		this.type='wall';
+		// this.img='img1';
+	}
+	map[map.sizeX*x+y] = new wallAtts;
 }
-for(let i=1; i<map.sizeY-1; i++){
-	map[map.sizeX*i+1] = {'type':'wall', 'img':'img1'};
+for(let j=5; j<map.sizeX-5; j++){
+	pointWalls(12,j)
+	pointWalls(34-12,j)
+	pointWalls(9,j)
+	pointWalls(34-9,j)
+	
+}
+for(let i=13; i<map.sizeY-13; i++){
+	pointWalls(i,18)
+	pointWalls(i,13)
+	pointWalls(i,11)
+}
+for(let i=0; i<map.sizeY; i++){
+	if(i>0 && i<7){
+		pointWalls(15,i)
+		pointWalls(34-15,i)
+	}
 }
 
 //Серверная часть
