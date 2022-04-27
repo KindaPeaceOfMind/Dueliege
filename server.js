@@ -205,7 +205,9 @@ app.post('/session', jsonParser, async function (req, res){
     }
   }else{res.json([0,'Сессия не найдена'])}
 })
-
+app.get('/restart', async function (req, res) {
+  sessionsTurns = {}
+})
 app.listen(3000, () => {
     console.log('Application listening on http://localhost:3000');
 });

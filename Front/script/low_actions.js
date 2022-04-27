@@ -152,12 +152,14 @@ function AddStatuses(player){
 function Attack(player, subj){
     if(subj.classList.contains('player')){
         subj.playerStats.hp -= player.playerStats.damage
+        DamageIndicator(subj.classList[0],player.playerStats.damage);
         if(subj.playerStats.hp <= 0){
             subj.outerHTML='';
             CheckWin();
         }
     }else{
         subj.hp -= player.playerStats.damage
+        DamageIndicator(subj.classList[0],player.playerStats.damage);
         if(subj.hp <= 0){
             ClearCell(subj.classList[0])
         }
@@ -171,7 +173,8 @@ function GetDamage(cellId,damage){
     let cell = document.getElementsByClassName(cellId);
     for(let i=0; i<cell.length; i++){
         if(cell[i].classList.contains('player')){
-            cell[i].playerStats.hp -= damage
+            cell[i].playerStats.hp -= damage;
+            DamageIndicator(cellId,damage);
             if(cell[i].playerStats.hp <= 0){
                 cell[i].outerHTML='';
                 CheckWin();
@@ -181,11 +184,40 @@ function GetDamage(cellId,damage){
     }
     if(cell[0].getAttribute('type')!=''){
         cell[0].hp -= damage;
+        DamageIndicator(cellId,damage);
         if(cell[0].hp <= 0){
             ClearCell(cellId);
             delete cell[0].hp
         }
     }
+}
+let damageIndicatorMassive = {}//чтобы цифры не сливались
+function DamageIndicator(cellId, damage){
+    if(damageIndicatorMassive[cellId]){
+        setTimeout(() => {
+            DamageIndicator(cellId, damage);
+        }, 2000);
+        return
+    }
+    damageIndicatorMassive[cellId] = true;
+    let div = document.createElement('div');
+    let coords = cellId.split('-');
+    div.innerHTML = damage;
+    div.style.position = 'absolute';
+    div.style.transform = 'skewX(32deg)';
+    div.style.color = 'orange';
+    div.style.zIndex = 3;
+    div.style.left = 48*coords[1]+24+'px';
+    div.style.top = 28*coords[0]+'px';
+    div.style.animation = 'damageGet 2.5s ease-out';
+
+    document.querySelector('table').appendChild(div);
+    setTimeout(() => {
+        delete damageIndicatorMassive[cellId];
+    }, 2000);
+    setTimeout(() => {
+        div.outerHTML = '';
+    }, 2500);
 }
 function CheckWin() {
     let players = document.getElementsByClassName('player');
