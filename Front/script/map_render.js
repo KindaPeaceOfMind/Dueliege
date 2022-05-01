@@ -155,6 +155,7 @@ function WallCreate(y,x,image) {
 	wall3.addEventListener('mouseover', ()=>{
 		if (map[map.sizeX*(y-1)+x].type != 'wall'){
 			wall3.style.display='none';
+			wall3.style.animation = '';
 			setTimeout(()=>{wall3.style.display=''},1000);
 		}
 	});

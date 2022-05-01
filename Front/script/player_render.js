@@ -1,7 +1,7 @@
 function PlayerStats(){
     this.hp = 20,
     this.damage = 6
-    this.skills = ['Walk','ExplosionWave','Capitulating','FireBall'],
+    this.skills = ['Walk','EarthQuake','Capitulating','FireBall'],
     this.radius = 7,
     this.maxStamina = 6,
     this.stamina = 6,

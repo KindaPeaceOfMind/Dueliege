@@ -6,7 +6,8 @@ function ClickCell(){
         alert('Сейчас ход противника')
         return
     }
-    if(action!='Walk' && actionSubject && actionSubject.radius < CheckDistance(actionSubject.classList[0], event.target.classList[0])){
+    if(action!='Walk' && actionSubject && 
+    actionSubject.playerStats.radius < CheckDistance(actionSubject.classList[0], event.target.classList[0])){
         return
     }
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
@@ -28,7 +29,7 @@ function ActionPerformer(cellId) {
         case 'Empty':
             Empty();
         break;
-        case 'ExplosionWave':
+        case 'EarthQuake':
             ExplosionWave(cellId);
         break
         case 'Place':

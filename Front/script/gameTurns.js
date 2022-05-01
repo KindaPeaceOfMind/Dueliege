@@ -3,6 +3,7 @@ let sessionTurns = {};//[\session,\ turnId, player, hero, action, cell]
 let turn = 0;
 let yourTurn = false;
 
+RefreshPlayerVisibility();
 turnGetter(turn);
 
 async function turnPoster(player, heroId, action, cell) {

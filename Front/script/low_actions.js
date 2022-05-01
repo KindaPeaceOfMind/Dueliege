@@ -77,10 +77,6 @@ function Lift(cellId, level, speed, startlevel) {
         }else{
             cells[cell].style.animation = 'lift'+optiLift[optiLiftParams]+' '+speed+'s 1';
         }
-        // setTimeout(() => {
-        //     cell.style.transform = 'translate('+level+'px, '+level*1.7+'px)';
-        //     cell.style.animation = '';
-        // }, speed*(1000));
     }
 }
 /**
@@ -207,6 +203,7 @@ function DamageIndicator(cellId, damage){
     div.style.transform = 'skewX(32deg)';
     div.style.color = 'orange';
     div.style.zIndex = 3;
+    div.style.fontSize = '22px';
     div.style.left = 48*coords[1]+24+'px';
     div.style.top = 28*coords[0]+'px';
     div.style.animation = 'damageGet 2.5s ease-out';
@@ -219,7 +216,7 @@ function DamageIndicator(cellId, damage){
         div.outerHTML = '';
     }, 2500);
 }
-function CheckWin() {
+function CheckWin(){
     let players = document.getElementsByClassName('player');
     let firstTeam = players[0].team;
     let win = true;
@@ -243,6 +240,7 @@ function ClearCell(cellId){
         cell[i].remove();
         i--;
     }
+    RefreshPlayerVisibility()
 }
 /**
  * @start 'y-x'
@@ -273,4 +271,86 @@ function WalkComputing(start,end){
         turn.push(part);
     }
     return turn
+}
+function RefreshPlayerVisibility() {
+    let players = document.getElementsByClassName('player')
+    for(let i=0; i<players.length; i++){
+        if(players[i].team == sessionParams.login || CheckEnemyVisibility(players[i])){
+            players[i].style.display = 'block';
+        }else{
+            players[i].style.display = 'none';
+        }
+    }
+    function CheckEnemyVisibility(enemy){
+        for(let i=0; i<players.length; i++){//Для каждого игрока
+            if(players[i].team == sessionParams.login){//Для каждого союзника
+                // console.log(CheckCoordsVisibility(players[i].classList[0], enemy.classList[0]),players[i].classList[0], enemy.classList[0]);
+                if(CheckCoordsVisibility(players[i].classList[0], enemy.classList[0])){//Если не видно
+                    return true
+                }
+            }
+        }
+        return false
+    }
+}
+/**
+ * Если корды видят друг друга/без стен
+ * возвращаем true
+ */
+function CheckCoordsVisibility(id1, id2){
+    id1 = id1.split('-');
+    id2 = id2.split('-');
+
+    let y = Number(id1[0]) - Number(id2[0]);
+    let x = Number(id1[1]) - Number(id2[1]);
+
+    if(Math.abs(x)>Math.abs(y)){
+        let coef = y/x;
+        if(x==0){
+            coef = y;
+        }
+        if(y==0){
+            coef = 1/x;
+        }
+
+        if(x>0){
+            for(let i=0; i<x; i++){
+                // document.getElementsByClassName( (Number(id1[0])+Math.ceil(coef*-i)) +'-'+ (-i+Number(id1[1])) )[0].style.borderColor='#f00';
+                if(document.getElementsByClassName( (Number(id1[0])+Math.ceil(coef*-i)) +'-'+ (-i+Number(id1[1])) )[0].getAttribute('type')=='wall'){
+                    return false
+                }
+            }
+        }else{
+            for(let i=0; i>x; i--){
+                // document.getElementsByClassName( (Number(id1[0])+Math.ceil(coef*-i)) +'-'+ (-i+Number(id1[1])) )[0].style.borderColor='#f00';
+                if(document.getElementsByClassName( (Number(id1[0])+Math.ceil(coef*-i)) +'-'+ (-i+Number(id1[1])) )[0].getAttribute('type')=='wall'){
+                    return false
+                }        
+            }
+        }
+    }else{
+        let coef = x/y;
+        if(x==0){
+            coef = 1/y;
+        }
+        if(y==0){
+            coef = x;
+        }
+        if(y>0){
+            for(let i=0; i<y; i++){
+                // document.getElementsByClassName( (Number(id1[0])-i) +'-'+ (Math.ceil(coef*-i)+Number(id1[1])) )[0].style.borderColor='#f00';
+                if(document.getElementsByClassName( (Number(id1[0])-i) +'-'+ (Math.ceil(coef*-i)+Number(id1[1])) )[0].getAttribute('type')=='wall'){
+                    return false
+                }
+            }
+        }else{
+            for(let i=0; i>y; i--){
+                // document.getElementsByClassName( (Number(id1[0])-i) +'-'+ (Math.ceil(coef*-i)+Number(id1[1])) )[0].style.borderColor='#f00';
+                if(document.getElementsByClassName( (Number(id1[0])-i) +'-'+ (Math.ceil(coef*-i)+Number(id1[1])) )[0].getAttribute('type')=='wall'){
+                    return false
+                }        
+            }
+        }
+    }
+    return true
 }

@@ -2,21 +2,30 @@ function Empty(){}
 function Place(cellId){
     PlaceImg(cellId, 'media/actions/gifs/Explosion.gif', true);
 }
-function ExplosionWave(cellId){
+function ExplosionWave(cellId, r){
     let cell = cellId.split('-');
     //Lift(cellId, 20, 1, 0);
-    let r = 5;
+    if(!r){
+        r = 5;
+    }
     for(y=-r; y <= r; y++){
         for(x=-r+Math.abs(y); x<=r-Math.abs(y); x++){
             timeQueue1(x,y);
+            
 
             function timeQueue1(a,b){
+                let cellStr = (Number(cell[0])+b)+'-'+(Number(cell[1])+a);
                 setTimeout(() => {
-                    Lift((Number(cell[0])+b)+'-'+(Number(cell[1])+a), 20, 1, 0);
+                    Lift(cellStr, 20, 1, 0);
                 }, (Math.abs(a)+Math.abs(b))*100);
 
                 setTimeout(() => {
-                    Lift((Number(cell[0])+b)+'-'+(Number(cell[1])+a), 0, 1, 20);
+                    Lift(cellStr, 0, 1, 20);
+                    if(document.getElementsByClassName(cellStr)[0].getAttribute('type')=='wall'){
+                        GetDamage(cellStr, 40);
+                    }else{
+                        GetDamage(cellStr, 2);
+                    }
                 }, (Math.abs(a)+Math.abs(b))*100+1000);
             }
         }
@@ -30,11 +39,13 @@ function FireBall(cellId){
         (cords[0])+'-'+(cords[1]-1), (cords[0])+'-'+(Number(cords[1])+1),
     ];
     for(let i=0; i<massive.length; i++){
+        GetDamage(massive[i],2)
         let cell = document.getElementsByClassName(massive[i]);
          
         if(cell[0].getAttribute('type')==''){
             PlaceImg(massive[i], 'media/actions/gifs/fire.gif', true);
             cell[0].setAttribute('type','fire');
+            cell[0].hp = 2;
         }
 
         
@@ -43,7 +54,6 @@ function FireBall(cellId){
                 AddStatuses(cell[j])
             }
         }   
-        GetDamage(massive[i],2)
     }
 }
 async function Walk(cellId, subject) {
@@ -52,6 +62,7 @@ async function Walk(cellId, subject) {
     for(let i=0; i<turn.length && checkWall; i++){
         checkWall = await MovePlayer(subject, turn[i]);
     }
+    RefreshPlayerVisibility()
 }
 function Capitulating(){
     document.getElementsByClassName('body')[0].outerHTML='';
