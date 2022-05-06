@@ -56,15 +56,28 @@ function ChangeTurn(){
     yourTurn = !yourTurn;
     action = false;
     actionSubject = false;
-        RefreshStamina();
+    RefreshStats();
     if(!yourTurn){
         ShowSkills();
         turnGetter(turn);
     }
 }
-function RefreshStamina(){
+function RefreshStats(){
     let players = document.getElementsByClassName('player');
     for(let i=0; i<players.length; i++){
-        players[i].stamina = players[i].maxStamina;
+        players[i].stamina = players[i].maxStamina;//stamina
+        
+        for(let j=0; i<players[i].playerStats.status.length; j++){//снимаем один ход статусов
+            players[i].playerStats.status[j] -= 1;
+            switch (players[i].playerStats.status[j]) {
+                case 'fire':
+                    GetDamage(players[i].classList[0],1);
+                break;
+            }
+            if(players[i].playerStats.status[j] == 0){
+                delete players[i].playerStats.status[j];
+                // j--;
+            }
+        }
     }
 }

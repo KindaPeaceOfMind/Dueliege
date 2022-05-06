@@ -1,15 +1,17 @@
 function Empty(){}
 function Place(cellId){
-    PlaceImg(cellId, 'media/actions/gifs/Explosion.gif', true);
+    PlaceImg(cellId, 'media/actions/gifs/fire.gif', true);
+    // cell.setAttribute('type','fire');
+    // cell.hp = 2;
 }
 function ExplosionWave(cellId, r){
     let cell = cellId.split('-');
     //Lift(cellId, 20, 1, 0);
     if(!r){
-        r = 5;
+        r = 3;
     }
-    for(y=-r; y <= r; y++){
-        for(x=-r+Math.abs(y); x<=r-Math.abs(y); x++){
+    for(let y=-r; y <= r; y++){
+        for(let x=-r+Math.abs(y); x<=r-Math.abs(y); x++){
             timeQueue1(x,y);
             
 
@@ -22,7 +24,7 @@ function ExplosionWave(cellId, r){
                 setTimeout(() => {
                     Lift(cellStr, 0, 1, 20);
                     if(document.getElementsByClassName(cellStr)[0].getAttribute('type')=='wall'){
-                        GetDamage(cellStr, 40);
+                        GetDamage(cellStr, 20);
                     }else{
                         GetDamage(cellStr, 2);
                     }
@@ -34,12 +36,12 @@ function ExplosionWave(cellId, r){
 function FireBall(cellId){
     let cords = cellId.split('-');
     let massive = [ //+
-        (cords[0])+'-'+(cords[1]), 
+        (cords[0])+'-'+(cords[1]),
         (cords[0]-1)+'-'+(cords[1]), (Number(cords[0])+1)+'-'+(cords[1]),
         (cords[0])+'-'+(cords[1]-1), (cords[0])+'-'+(Number(cords[1])+1),
     ];
     for(let i=0; i<massive.length; i++){
-        GetDamage(massive[i],2)
+        GetDamage(massive[i],2);
         let cell = document.getElementsByClassName(massive[i]);
          
         if(cell[0].getAttribute('type')==''){
@@ -67,5 +69,5 @@ async function Walk(cellId, subject) {
 function Capitulating(){
     document.getElementsByClassName('body')[0].outerHTML='';
     alert('Игра закончена');
-    location.reload()
+    location.reload();
 }

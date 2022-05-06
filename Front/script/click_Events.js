@@ -6,8 +6,11 @@ function ClickCell(){
         alert('Сейчас ход противника')
         return
     }
-    if(action!='Walk' && actionSubject && 
+    if( action!='Walk' && actionSubject && 
     actionSubject.playerStats.radius < CheckDistance(actionSubject.classList[0], event.target.classList[0])){
+        return
+    }
+    if(action == 'FireBall' && !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
         return
     }
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
@@ -15,8 +18,8 @@ function ClickCell(){
     hoverPLayerPosition = false;
     ShowSkills();
     if(action){
-        ActionPerformer(event.target.classList[0]);
-        turnPoster(sessionParams.login, actionSubject.id, action, event.target.classList[0])
+        ActionPerformer(event.target.classList[0])
+        turnPoster(sessionParams.login, actionSubject.id, action, event.target.classList[0]);
     }
     action = 0;
     actionSubject = false;
