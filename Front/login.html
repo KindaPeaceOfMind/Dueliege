@@ -1,22 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <link href="style/login.css" rel="stylesheet">
+</head>
 <body>
-<div style="text-align-last: center;">
-    <p>
-        <b>Ваш логин:</b><br>
-        <input type="text" id="login" name="login" size="10">
-    </p>
-    <p>
-        <b>Ваш пароль:</b><br>
-        <input type="password" id="password" name="password" size="10">
-    </p>
-    <p>
+<div class="body">
+    <div></div>
+    <div class="block">
+        <h2>Регистрация</h2>
+        <div>Логин:</div>
+        <input type="text" id="login" name="login" size="10"><br><br>
+        <div>Пароль:</div>
+        <input type="password" id="password" name="password" size="10"><br><br>
+        <button onclick="authorization()">Зарегестрироваться</button>
+    </div>
+    <div class="block">
+        <h2>Авторизация</h2>
+        <div>Логин:</div>
+        <input type="text" id="login" name="login" size="10"><br><br>
+        <div>Пароль:</div>
+        <input type="password" id="password" name="password" size="10"><br><br>
         <button onclick="authorization()">Войти</button>
-    </p>
+    </div>
+    <div></div>
+</div>
+<div class="body2">
+<p class="block"><a href="https://vk.com/radikc2003" style="text-decoration:none;">Создатель этого действа в VK</a></p>
 </div>
 <script>
     async function authorization(){
-        let login = document.getElementById('login').value;
-        let password = document.getElementById('password').value;
+        let login = event.target.parentNode.childNodes[5].value;
+        let password = event.target.parentNode.childNodes[11].value;
+
         let user = {login:login, password:password};
+
         let response = await fetch('/', {
             method: 'POST',
             headers: {
@@ -30,9 +46,8 @@
             document.cookie = "token ="+result[1];
             document.location.replace('/start');
         }else{
-            document.writeln(result[1])
+            alert(result[1])
         }
-        
     }
 </script>
 </body>

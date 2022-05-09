@@ -20,6 +20,7 @@ app.post('/', jsonParser, async function (req, res) {
 
   const login = req.body.login;
   const password = req.body.password;
+  
   if (login.length<3||login.length>20) {return res.json([false,"Мне не нравится ваш логин"])}
   if (password.length<3||password.length>20) {return res.json([false,"Мне не нравится ваш пароль"])}
 

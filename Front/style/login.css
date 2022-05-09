@@ -1,0 +1,62 @@
+body{
+    max-width: 1600px;
+    margin: auto;
+    padding: 0 15px;
+    background: repeating-linear-gradient(45deg, #762c11, #f57738, transparent 60vw);
+    background-image: url(/./media/sprites/other/loginbg.jpg);
+    background-repeat: round;
+    background-size: cover;
+}
+.body{
+    display: flex;
+    text-align-last: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    background: #ffffffcc;
+    height: 65vh;
+    box-shadow: 0px 0px 15px #fff;
+    padding: 5vh 20px;
+    margin: 5vh 20px;
+}
+.block{
+    height: fit-content;
+    border-radius: 10px;
+    border: 3px solid orange;
+    padding: 10px 50px;
+    font-size: 20px;
+    font-family: sans-serif;
+    transform: skewX(-10deg);
+}
+.block input{
+    min-width: 150px;
+    height: 30px;
+    font-size: 28px;
+}
+.block button{
+    min-width: 150px;
+    height: 40px;
+    font-size: 28px;
+}
+.block div{
+    font-size: 26px;
+    font-family: sans-serif;
+    transform: skewX(10deg);
+}
+.block:hover{
+    border: 3px solid rgb(255, 145, 0);
+    box-shadow: -5px -5px 0px rgb(77, 67, 91);
+    transform: skewX(-10deg) translate(5px,5px);
+}
+.body2{
+    display: flex;
+    text-align-last: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    background: #ffffffcc;
+    height: 8vh;
+    box-shadow: 0px 0px 15px #fff;
+    padding: 1vh 20px;
+    margin: 1vh 20px;
+    font-size: 20px;
+    font-family: sans-serif;
+}

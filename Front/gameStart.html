@@ -5,14 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>duelige</title>
 </head>
+
 <body>
+
 <div class='body' style="text-align-last: center;">
-    <p><b>Выберите класс:</b><Br>
-        <input type="radio" name="skills" value="1" checked> warrior<Br>
-        <input type="radio" name="skills" value="2"> ranger<Br>
-        <input type="radio" name="skills" value="3"> mage</p>
-    <button onclick="start()">Начать</button></p>
+    <div class="blocksLine">
+        <div class="block block1"><div class="img1 img"></div></div>
+        <div class="block block2" onclick="start()"><div class="img2 img"></div></div>
+        <div class="block block3" onclick="document.location.href='https://github.com/KindaPeaceOfMind/Dueliege/commits?author=KindaPeaceOfMind'"><div class="img3 img"></div></div>
+    </div>
+    <div class="blocksLine">
+        <div class="block buttonText">Как играть?</div>
+        <div class="block buttonText" onclick="start()">Старт</div>
+        <div class="block buttonText" onclick="document.location.href='https://github.com/KindaPeaceOfMind/Dueliege/commits?author=KindaPeaceOfMind'">Новости разработки</div>
+    </div>
+    <div class="blocksLine">
+        <button class="block button">Сменить пользователя</button>
+    </div>
+    
+<style>
+    body{
+        max-width: 1600px;
+        margin: auto;
+        padding: 0 15px;
+        background: repeating-linear-gradient(45deg, #762c11, #f57738, transparent 60vw);
+        background-image: url(/./media/sprites/other/loginbg.jpg);
+        background-repeat: round;
+        background-size: cover;
+    }
+    .body{
+        display: flex;
+        text-align-last: center;
+        border-radius: 10px;
+        background: #ffffffcc;
+        height: 65vh;
+        box-shadow: 0px 0px 15px #fff;
+        padding: 5vh 20px;
+        margin: 5vh 20px;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .blocksLine{
+        display: flex;
+        justify-content: center;
+    }
+    .block{
+        border-radius: 10px;
+        border: 3px solid orange;
+        margin: 10px;
+        font-size: 20px;
+        font-family: sans-serif;
+        transform: skewX(-10deg);
+        height: 250px;
+        width: 20vw;
+        overflow-y:clip;
+        cursor: pointer;
+    }
+    .block1{
+        background: #fff;
+    }
+    .block2{
+        background: #202020;
+    }
+    .block3{
+        background: #fff;
+    }
+    .buttonText{
+        margin-top: -10px;
+        height: 40px;
+        border-radius: 25px;
+        margin-top: -7px;
+        margin-left: -19px;
+        margin-right: 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .button{
+        height: 40px;
+        width: 240px;
+        border-radius: 0px;
+        margin-top: 30px;
+    }
+    .img{
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: inherit;
+        transform: skewX(10deg);
+    }
+    .img1{
+        background-image: url(/media/sprites/other/skills.png);
+    }
+    .img2{
+        background-image: url(/media/sprites/other/start.gif);
+    }
+    .img3{
+        background-image: url(/media/sprites/other/news.webp);
+    }
+</style>
 </div>
+
 <script>
     function getCookie(name) {
         let matches = document.cookie.match(new RegExp(
