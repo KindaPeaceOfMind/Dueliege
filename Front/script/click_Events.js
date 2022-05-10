@@ -6,12 +6,23 @@ function ClickCell(){
         alert('Сейчас ход противника')
         return
     }
+    // Условия для срабатывания
+    // 1 Проверка на дистанцию и наличие субъекта
+    let distance = CheckDistance(actionSubject.classList[0], event.target.classList[0])
     if( action!='Walk' && actionSubject && 
-    actionSubject.playerStats.radius < CheckDistance(actionSubject.classList[0], event.target.classList[0])){
+        actionSubject.playerStats.radius < distance){
         return
     }
+    // 2 Проверка на видимость для некоторых скилов
     if(action == 'FireBall' && !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
         return
+    }
+    // 3 Проверка на выносливость
+    let staminaCost = StaminaCost(action, distance);
+    if(staminaCost > actionSubject.playerStats.stamina){
+        return
+    }else{
+        actionSubject.playerStats.stamina -= staminaCost;
     }
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
     hoverEffects.innerHTML = '';
@@ -80,4 +91,18 @@ function CheckDistance(cellId1, cellId2){
     }else{
         return x
     }
+}
+function StaminaCost(action, distance){
+    switch (action) {
+        case "FireBall":
+            return 4;
+        break
+        case "Walk":
+            return distance;
+        break
+        case 'EarthQuake':
+            return 4;
+        break
+    }
+    return 0;
 }

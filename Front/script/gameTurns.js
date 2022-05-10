@@ -26,6 +26,7 @@ async function turnGetter(turnToGet) {
         if(result[1][2]=='ChangeTurn'){
             turn+=1;
             ChangeTurn();
+            alert("Ваш ход");
         }else{
             turn+=1;
             action = result[1][2]
@@ -65,9 +66,9 @@ function ChangeTurn(){
 function RefreshStats(){
     let players = document.getElementsByClassName('player');
     for(let i=0; i<players.length; i++){
-        players[i].stamina = players[i].maxStamina;//stamina
+        players[i].stamina = players[i].maxStamina;                 //stamina
         
-        for(let j=0; i<players[i].playerStats.status.length; j++){//снимаем один ход статусов
+        for(let j=0; i<players[i].playerStats.status.length; j++){  //снимаем один ход статусов
             players[i].playerStats.status[j] -= 1;
             switch (players[i].playerStats.status[j]) {
                 case 'fire':
