@@ -76,8 +76,8 @@ function RefreshStats(){
                 break;
             }
             if(players[i].playerStats.status[j] == 0){
-                delete players[i].playerStats.status[j];
-                // j--;
+                players[i].playerStats.status.splice(j, 1);
+                j--;
             }
         }
     }

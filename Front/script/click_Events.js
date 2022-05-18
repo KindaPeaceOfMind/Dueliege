@@ -6,7 +6,7 @@ function ClickCell(){
         alert('Сейчас ход противника')
         return
     }
-    // Условия для срабатывания
+    // Условия для срабатывания для скиллов
     // 1 Проверка на дистанцию и наличие субъекта
     let distance = CheckDistance(actionSubject.classList[0], event.target.classList[0])
     if( action!='Walk' && actionSubject && 

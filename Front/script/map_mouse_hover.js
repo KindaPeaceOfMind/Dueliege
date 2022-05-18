@@ -28,5 +28,4 @@ function renderTrajectory(cellId) {
         step.addEventListener('click', ClickCell);
         hoverEffects.appendChild(step);
     }
-
 }
