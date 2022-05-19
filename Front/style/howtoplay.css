@@ -1,11 +1,13 @@
 *{margin: 0;}
 body{
     text-align: -webkit-center;
+    background: linear-gradient(17deg, orange, rgb(255, 255, 255), rgb(255, 255, 255));
+    min-height: calc(100vh - 20px);
+    padding: 10px;
 }
 .body{
-    margin: 10px;
     border: 5px solid orange;
-    background-color: blanchedalmond;
+    background: linear-gradient(300deg, orange,rgb(255, 255, 255),#ffffff00);
     padding: 20px;
     border-radius: 20px;
     /* text-align: justify; */
@@ -41,4 +43,21 @@ body{
     background: #fff;
     font-family: system-ui, monospace;
     text-align: justify;
+}
+.backButton{
+    border-radius: 28px;
+    font-variant: traditional;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: cursive;
+    height: 50px;
+    width: 100px;
+    position: fixed;
+    background-color: white;
+    border: 5px solid #ffa500;
+    cursor: pointer;
 }
