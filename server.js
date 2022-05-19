@@ -95,6 +95,7 @@ app.post('/start', jsonParser, async function (req, res) {
     res.json([0,'Ошибка токена, авторизуйтесь снова.']);
   }
 })
+
 async function SessionCreate(token){//Отдаёт 1, id сессии, логин, противника
   const user = await prisma.user.findFirst({//Получить пользователя
     where:{
@@ -128,25 +129,25 @@ async function SessionCreate(token){//Отдаёт 1, id сессии, логи�
       if(sessionCheck.user1){
         await prisma.sessions.update({
           data:{
-            user2:login
+            user2:login,
+            active:'active'
           },
           where:{
             id:sessionCheck.id
           }
         })
-                                            /////////////////////////////////Добавить изменение с waiting
         console.log(login+' подключился к сессии '+sessionCheck.id+' как user2 ')
         return [1, sessionCheck.id, login, sessionCheck.user1, 1]
       }else{
         await prisma.sessions.update({
           data:{
-            user1:login
+            user1:login,
+            active:'active'
           },
           where:{
             id:sessionCheck.id
           }
         })
-                                                      /////////////////////////////////Добавить изменение с waiting
         console.log(login+' подключился к сессии '+sessionCheck.id+' как user1 ')
         return [1, sessionCheck.id, login, sessionCheck.user2, 2]
       }
@@ -158,7 +159,7 @@ async function SessionCreate(token){//Отдаёт 1, id сессии, логи�
         }
       })
       console.log(login+' создал сессию '+SessionCreate.id)
-      return [1, SessionCreate.id, login, sessionCheck.user2, 2]///////////////////////Добавить второго пользователя
+      return [1, SessionCreate.id, login, SessionCreate.user2, 2]///////////////////////Добавить второго пользователя
     }
   }
 }
@@ -217,6 +218,9 @@ app.get('/restart', async function (req, res) {
     res.json(sessionsTurns);
     sessionsTurns[id] = {}
   }
+})
+app.get('/showSessions', async function (req, res) {
+  res.json(sessionsTurns);
 })
 app.listen(3000, () => {
     console.log('Application listening on http://localhost:3000');
