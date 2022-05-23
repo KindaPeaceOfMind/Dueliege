@@ -71,3 +71,7 @@ function Capitulating(){
     alert('Игра закончена');
     location.reload();
 }
+function IceWall(cellId){
+    let cords = cellId.split('-');
+    WallCreate(Number(cords[0]),Number(cords[1]),'IceWall.png')
+}

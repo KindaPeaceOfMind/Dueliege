@@ -16,7 +16,7 @@ function PlaceImg(cellId, media, skew){
     anim.style.top = 28*coords[0]+'px';
     anim.style.width = 48+'px';
     anim.style.height = 28+'px';
-    anim.style.zIndex = 1;
+    anim.style.zIndex = 34*Number(coords[0])+Number(coords[1]);;
     anim.classList = coords[0]+'-'+coords[1];
 	anim.addEventListener('click', ClickCell);
 	anim.addEventListener('mouseover', CellMouseHover);
@@ -117,6 +117,7 @@ async function MovePlayer(player, side){
             player.style.animation = '';
             player.classList.remove(player.classList[0]);
             player.classList = y+'-'+x+' '+player.classList;
+	        player.style.zIndex = 34*y+x;
             player.offsetHeight;//перерендер
             AddStatuses(player);
             resolve(true);
@@ -202,7 +203,7 @@ function DamageIndicator(cellId, damage){
     div.style.position = 'absolute';
     div.style.transform = 'skewX(32deg)';
     div.style.color = 'orange';
-    div.style.zIndex = 3;
+    div.style.zIndex = 999;
     div.style.fontSize = '22px';
     div.style.left = 48*coords[1]+24+'px';
     div.style.top = 28*coords[0]+'px';

@@ -17,7 +17,16 @@ function ClickCell(){
     if(action == 'FireBall' && !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
         return
     }
-    // 3 Проверка на выносливость
+    // 3 Проверка на свободное место на клетке для размещения стены
+    if(action == 'IceWall'){
+        let cell = document.getElementsByClassName(event.target.classList[0]);
+        for(let i=0; i<cell.length;i++){
+            if(cell[i].classList.contains('player') || cell[i].getAttribute('type') == 'wall'){
+                return
+            }
+        }
+    }
+    // 4 Проверка на выносливость
     let staminaCost = StaminaCost(action, distance);
     if(staminaCost > actionSubject.playerStats.stamina){
         return
@@ -37,6 +46,9 @@ function ClickCell(){
 }
 function ActionPerformer(cellId) {
     switch (action) {
+        case '':
+            Empty();
+        break;
         case 0:
             Empty();
         break;
@@ -48,6 +60,9 @@ function ActionPerformer(cellId) {
         break
         case 'Place':
             Place(cellId);
+        break
+        case 'IceWall':
+            IceWall(cellId);
         break
         case 'FireBall':
             FireBall(cellId);
@@ -102,6 +117,9 @@ function StaminaCost(action, distance){
         break
         case 'EarthQuake':
             return 4;
+        break
+        case "IceWall":
+            return 1;
         break
     }
     return 0;

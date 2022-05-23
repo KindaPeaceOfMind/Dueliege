@@ -66,7 +66,7 @@ function ChangeTurn(){
 function RefreshStats(){
     let players = document.getElementsByClassName('player');
     for(let i=0; i<players.length; i++){
-        players[i].stamina = players[i].maxStamina;                 //stamina
+        players[i].playerStats.stamina = players[i].playerStats.maxStamina;                 //stamina
         
         for(let j=0; i<players[i].playerStats.status.length; j++){  //снимаем один ход статусов
             players[i].playerStats.status[j] -= 1;

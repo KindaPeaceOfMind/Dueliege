@@ -1,10 +1,15 @@
-function PlayerStats(){
-    this.hp = 20,
-    this.damage = 6
-    this.skills = ['Walk','EarthQuake','Capitulating','FireBall'],
-    this.radius = 7,
-    this.maxStamina = 6,
-    this.stamina = 6,
+function PlayerStats(num){
+    if(num % 2 == 1){ // Если маг
+        this.skills = ['Capitulating','','Walk','FireBall','IceWall']
+        this.damage = 5;
+    }else{            // Если рыцарь
+        this.skills = ['Capitulating','','Walk','EarthQuake']
+        this.damage = 7;
+    }
+    this.hp = 20;
+    this.radius = 7;
+    this.maxStamina = 6;
+    this.stamina = 6;
     this.status = []
 };
 
@@ -24,7 +29,7 @@ for(playerId in map.PlayersLocation){
     div.style.backgroundRepeat = 'no-repeat';
     div.style.backgroundSize = 'contain';
     div.style.position = 'absolute';
-    div.style.zIndex = 2;
+    div.style.zIndex = 34*map.PlayersLocation[playerId][0]+map.PlayersLocation[playerId][1];
     div.id = playerId;
     div.classList.add(map.PlayersLocation[playerId][0]+'-'+map.PlayersLocation[playerId][1]);
     div.classList.add('player')
@@ -41,8 +46,9 @@ for(playerId in map.PlayersLocation){
     }
     table.appendChild(div);
 
+
     //getplayerStats<<<<<<<<<<<<<<<
-    div.playerStats = new PlayerStats;
+    div.playerStats = new PlayerStats(Number(playerId[1]));
 
     div.addEventListener('click', ClickHero);
 }

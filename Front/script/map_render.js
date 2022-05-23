@@ -115,6 +115,8 @@ for(let i=0; i<map.sizeY; i++){
  * с текстурой image
  */
 function WallCreate(y,x,image) {
+	document.getElementById(y+'-'+x).setAttribute('type','wall');
+	document.getElementById(y+'-'+x).hp = 10;
 	//Восток
 	let wall1 = document.createElement('div');
 	wall1.style.width = '26px';
@@ -129,6 +131,7 @@ function WallCreate(y,x,image) {
 	table.appendChild(wall1);
 	wall1.addEventListener('click', ClickCell);
 	wall1.addEventListener('mouseover', CellMouseHover);
+	wall1.style.zIndex = 34*y+x;
 	//Юг
 	let wall2 = document.createElement('div');
 	wall2.style.width = '46px';
@@ -142,6 +145,7 @@ function WallCreate(y,x,image) {
 	table.appendChild(wall2);
 	wall2.addEventListener('click', ClickCell);
 	wall2.addEventListener('mouseover', CellMouseHover);
+	wall2.style.zIndex = 34*y+x;
 	//Крыша
 	let wall3 = document.createElement('div');
 	wall3.style.width = '28px';
@@ -151,9 +155,10 @@ function WallCreate(y,x,image) {
 	wall3.style.left = (48*x-14)+'px';
 	wall3.style.top = 28*y-45+'px';
 	wall3.style.transform = 'rotateZ(-90deg)';
+	wall3.style.zIndex = 34*y+x;
 	//Функция для выключения на секунду при наведении
 	wall3.addEventListener('mouseover', ()=>{
-		if (map[map.sizeX*(y-1)+x].type != 'wall'){
+		if (y!=0 && document.getElementById(y-1+'-'+x).getAttribute('type') != 'wall'){
 			wall3.style.display='none';
 			wall3.style.animation = '';
 			setTimeout(()=>{wall3.style.display=''},1000);
