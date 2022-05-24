@@ -12,15 +12,17 @@
     <div class="blocksLine">
         <div class="block block1" onclick="document.location.href='/howtoplay.html'"><div class="img1 img"></div></div>
         <div class="block block2" onclick="start()"><div class="img2 img"></div></div>
-        <div class="block block3" onclick=""><div class="img3 img"></div></div>
+        <div class="block block3 roomsBlock" onclick="">
+            <div class="roomsRow" onclick="createRoom()">Создать комнату</div>
+        </div>
     </div>
     <div class="blocksLine">
         <div class="block buttonText" onclick="document.location.href='/howtoplay.html'">Как играть?</div>
         <div class="block buttonText" onclick="start()">Старт</div>
-        <div class="block buttonText" onclick="">Найти комнату</div>
+        <div class="block buttonText" onclick="findRooms()">Найти комнату</div>
     </div>
     <div class="blocksLine">
-        <div class="block block1" onclick="document.location.href='/About.html'"><div class="img1 img"></div></div>
+        <div class="block block1" onclick="document.location.href='/About.html'"><div class="img4 img"></div></div>
         <div class="block block3" onclick="document.location.href='https://github.com/KindaPeaceOfMind/Dueliege/commits?author=KindaPeaceOfMind'"><div class="img3 img"></div></div>
     </div>
     <div class="blocksLine">
@@ -28,7 +30,7 @@
         <div class="block buttonText" onclick="document.location.href='https://github.com/KindaPeaceOfMind/Dueliege/commits?author=KindaPeaceOfMind'">Новости разработки</div>
     </div>
     <div class="blocksLine">
-        <button class="block button">Сменить пользователя</button>
+        <button class="block button" onclick="document.location.href='/'">Сменить пользователя</button>
     </div>
     
 <style>
@@ -111,6 +113,35 @@
     .img3{
         background-image: url(/media/sprites/other/news.webp);
     }
+    .img4{
+        background-image: url(/media/sprites/other/about.png);
+    }
+    .img5{
+        background-image: url(/media/sprites/other/news.webp);
+    }
+    .roomsBlock{
+        overflow: auto;
+        cursor: auto;
+    }
+    .roomsRow:hover{
+        background-color: orange;
+    }
+    .roomsRow:last-child{
+        width: max-content;
+        padding: 5px 7px;
+        border-radius: 0;
+        margin: auto;
+        margin: auto;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+    .roomsRow{
+        border: 1px solid orange;
+        border-radius: 7px;
+        margin: 5px;
+        cursor: pointer;
+        
+    }
 </style>
 </div>
 
@@ -127,20 +158,12 @@ let sessionParams = {}
 
 async function start() {
     document.getElementsByClassName('body')[0].innerHTML='';
-    let checkedRadio = 0;
-    let radios = document.getElementsByName("skills");
-    for (let radio of radios) {
-		if (radio.checked) {
-            checkedRadio = radio.value;
-			break
-		}
-	}
     let response = await fetch('/start', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify([getCookie('token'), checkedRadio])
+        body: JSON.stringify([getCookie('token')])
     })
     let result = await response.json();//Получили: успех, номер сессии, логин, противника
     
@@ -149,32 +172,83 @@ async function start() {
         sessionParams.login = result[2];
         sessionParams.enemy = result[3];
         sessionParams.team = result[4];
-        let urls = [
-            'low_actions.js',
-            'actions.js',
-            'click_Events.js',
-            'game_interface.js',
-            'map_mouse_hover.js',
-            'map_render.js',
-            'map_scroller.js',
-            'player_render.js',
-            'gameTurns.js',
-        ];
-        function InsertGameUrls(){
-            document.getElementsByClassName('body')[0].innerHTML = '\
-                <link rel="stylesheet" href="style/game_style.css">\
-                <link rel="stylesheet" href="style/walk.css">\
-            ';            
-            for(i in urls){
-                let newScript = document.createElement("script");
-                newScript.src = 'script/'+urls[i];
-                newScript.charset="utf-8";
-                newScript.async = false;
-                document.getElementsByClassName('body')[0].appendChild(newScript);
-            }
-        }
         InsertGameUrls();
     }else{document.write("Ошибка в ответе сервера")}
+}
+
+async function findRooms(){
+    let response = await fetch('/rooms');
+    let result = await response.json();
+    // console.log(result);
+    document.getElementsByClassName('roomsBlock')[0].innerHTML = '';
+    for(let i=0; i<result.length; i++){
+        document.getElementsByClassName('roomsBlock')[0].innerHTML += 
+        '<div class="roomsRow" onclick="joinRoom('+result[i].id+')">'+result[i].id+' - '+result[i].user1+'</div>';
+    }
+    document.getElementsByClassName('roomsBlock')[0].innerHTML += 
+    '<div class="roomsRow" onclick="createRoom()">Создать комнату</div>';
+}
+async function createRoom() {
+    document.getElementsByClassName('body')[0].innerHTML='';
+    let response = await fetch('/rooms', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify([getCookie('token')])
+    })
+    let result = await response.json();//Получили: успех, номер сессии, логин, противника
+    
+    if(result[0]){
+        sessionParams.sessionId = result[1];
+        sessionParams.login = result[2];
+        sessionParams.enemy = result[3];
+        sessionParams.team = result[4];
+        InsertGameUrls();
+    }else{document.write("Ошибка в ответе сервера")}
+}
+async function joinRoom(roomId){
+    document.getElementsByClassName('body')[0].innerHTML='';
+    let response = await fetch('/rooms', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify([getCookie('token'), roomId])
+    })
+    let result = await response.json();//Получили: успех, номер сессии, логин, противника
+    
+    if(result[0]){
+        sessionParams.sessionId = result[1];
+        sessionParams.login = result[2];
+        sessionParams.enemy = result[3];
+        sessionParams.team = result[4];
+        InsertGameUrls();
+    }else{document.write("Ошибка в ответе сервера")}
+}
+function InsertGameUrls(){
+let urls = [
+    'low_actions.js',
+    'actions.js',
+    'click_Events.js',
+    'game_interface.js',
+    'map_mouse_hover.js',
+    'map_render.js',
+    'map_scroller.js',
+    'player_render.js',
+    'gameTurns.js',
+];
+document.getElementsByClassName('body')[0].innerHTML = '\
+    <link rel="stylesheet" href="style/game_style.css">\
+    <link rel="stylesheet" href="style/walk.css">\
+';            
+for(i in urls){
+    let newScript = document.createElement("script");
+    newScript.src = 'script/'+urls[i];
+    newScript.charset="utf-8";
+    newScript.async = false;
+    document.getElementsByClassName('body')[0].appendChild(newScript);
+}
 }
 </script>
 </body>

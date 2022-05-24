@@ -118,7 +118,6 @@ async function SessionCreate(token){//Отдаёт 1, id сессии, логи�
     }else{
       return [1, liveSession.id, login, liveSession.user1, 1]
     }
-    
   }else{
     const sessionCheck = await prisma.sessions.findFirst({//Проверить наличие свободной сессии
       where:{
@@ -221,6 +220,63 @@ app.get('/restart', async function (req, res) {
 })
 app.get('/showSessions', async function (req, res) {
   res.json(sessionsTurns);
+})
+app.get('/rooms', async function (req, res) {
+  const searchingSessions = await prisma.sessions.findMany({
+    where:{
+        active: {contains: 'searching'}
+    }
+  })
+  res.json(searchingSessions);
+})
+app.post('/rooms', jsonParser, async function (req, res) {
+  if (!req.body||req.body == {}) {return res.sendStatus(400)}
+
+  let token = req.body[0];
+  const tokenCheck = await prisma.user.findFirst({//проверяем токен
+    where:{
+      token:token
+    }
+  })
+  if(tokenCheck){//если токен существует в бд
+    let session = await SessionCreate(token)//Отдаёт 1, id сессии, логин, противника
+    const SessionCreated = await prisma.sessions.create({
+      data:{
+        active:'searching',
+        user1: session[2]
+      }
+    })
+    res.json(session);//отправляем SessionCreate
+  }else{
+    res.json([0,'Ошибка токена, авторизуйтесь снова.']);
+  }
+})
+app.post('/roomsConnect', jsonParser, async function (req, res) {
+  if (!req.body||req.body == {}) {return res.sendStatus(400)}
+
+  let token = req.body[0];
+  const tokenCheck = await prisma.user.findFirst({//проверяем токен
+    where:{
+      token:token
+    }
+  })
+  if(tokenCheck){//если токен существует в бд
+    const FindedSessionAddUser = await prisma.sessions.update({
+      data:{
+        user2:login,
+        active:'active'
+      },
+      where:{
+        active:'searching',
+        id: req.body[1]//sessionId
+      }
+    })
+    let session = await SessionCreate(token)//Отдаёт 1, id сессии, логин, противника
+    
+    res.json(session);//отправляем SessionCreate
+  }else{
+    res.json([0,'Ошибка токена, авторизуйтесь снова.']);
+  }
 })
 app.listen(3000, () => {
     console.log('Application listening on http://localhost:3000');
