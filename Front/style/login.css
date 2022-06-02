@@ -7,13 +7,43 @@ body{
     background-repeat: round;
     background-size: cover;
 }
+.body0{
+    border-radius: 10px;
+    background: #ffffffcc;
+    box-shadow: 0px 0px 15px #fff;
+    padding: 5vh 20px;
+    margin: 5vh 20px;    
+    text-align: -webkit-center;
+}
+.body0 *{
+    width: fit-content;
+    border-radius: 10px;
+    border: 3px solid orange;
+    padding: 10px 50px;
+    font-size: 20px;
+    font-family: system-ui;
+    transform: skewX(-10deg);
+    margin: 10px 40px;
+    background-color: #fff;
+}
+.body0 h1{
+    font-size: 46px;
+}
+.body0 h2{
+    font-size: 26px;
+}
+.body0 h3{
+    font-size: 26px;
+}
+.body0 p{
+    margin-bottom: 50px;
+}
 .body{
     display: flex;
     text-align-last: center;
     justify-content: space-around;
     border-radius: 10px;
     background: #ffffffcc;
-    height: 65vh;
     box-shadow: 0px 0px 15px #fff;
     padding: 5vh 20px;
     margin: 5vh 20px;
@@ -31,11 +61,16 @@ body{
     min-width: 150px;
     height: 30px;
     font-size: 28px;
+    background-color: #fff;
+    border-radius: 5px;
 }
 .block button{
     min-width: 150px;
     height: 40px;
     font-size: 28px;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
 }
 .block div{
     font-size: 26px;
@@ -47,16 +82,32 @@ body{
     box-shadow: -5px -5px 0px rgb(77, 67, 91);
     transform: skewX(-10deg) translate(5px,5px);
 }
-.body2{
+.block2{
+    height: fit-content;
+    border-radius: 10px;
+    border: 3px solid orange;
+    padding: 10px 50px;
+    font-size: 20px;
+    font-family: sans-serif;
+    transform: skewX(-10deg);
+    box-shadow: -5px -5px 0px rgb(77, 67, 91);
+    transform: skewX(-10deg) translate(5px,5px);
+    background-color: #fff;
+}
+.block2:hover{
+    box-shadow: none;
+    transform:  none;
+}
+.body2{    
     display: flex;
     text-align-last: center;
-    justify-content: space-around;
     border-radius: 10px;
     background: #ffffffcc;
-    height: 8vh;
     box-shadow: 0px 0px 15px #fff;
     padding: 1vh 20px;
     margin: 1vh 20px;
     font-size: 20px;
     font-family: sans-serif;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
