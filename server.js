@@ -10,7 +10,6 @@ const { PrismaClient } = require('@prisma/client');
 const { create } = require('domain');
 const prisma = new PrismaClient()
 
-
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/Front/login.html`);
 });
@@ -32,8 +31,10 @@ app.post('/', jsonParser, async function (req, res) {
   if(authorization){
     const entrance = await prisma.user.findFirst({//если логин занят - проверяем пароль
       where:{
-        login:login,
-        password:password
+        AND:[
+          {login: {contains: login}},
+          {password: {contains: password}}
+        ]
       }
     })
     if(entrance){
@@ -193,8 +194,14 @@ app.post('/session', jsonParser, async function (req, res){
           res.json([1,
             sessionsTurns[input[0]][input[1]]
           ])
-          if(sessionsTurns[input[0]][input[1]][2]=='Capitulating'){
+          if(sessionsTurns[input[0]][input[1]][2]=='Capitulating'){// При завершении сессии
             delete sessionsTurns[input[0]];
+            const DeleteSession = await prisma.sessions.deleteMany({
+              where:{
+                id: input[0]
+              }
+            })
+            console.log("Сессия "+input[0]+" удалена.");
           }
         }else{
           console.log("хода "+input[1]+" в сессии "+input[0]+" ещё не было");
@@ -240,10 +247,13 @@ app.post('/rooms', jsonParser, async function (req, res) {
   })
   if(tokenCheck){//если токен существует в бд
     let session = await SessionCreate(token)//Отдаёт 1, id сессии, логин, противника
-    const SessionCreated = await prisma.sessions.create({
+    const SessionCreated = await prisma.sessions.update({
       data:{
         active:'searching',
         user1: session[2]
+      },
+      where:{
+        id:session[1]
       }
     })
     res.json(session);//отправляем SessionCreate
@@ -263,11 +273,10 @@ app.post('/roomsConnect', jsonParser, async function (req, res) {
   if(tokenCheck){//если токен существует в бд
     const FindedSessionAddUser = await prisma.sessions.update({
       data:{
-        user2:login,
+        user2:tokenCheck.login,
         active:'active'
       },
       where:{
-        active:'searching',
         id: req.body[1]//sessionId
       }
     })
@@ -278,6 +287,6 @@ app.post('/roomsConnect', jsonParser, async function (req, res) {
     res.json([0,'Ошибка токена, авторизуйтесь снова.']);
   }
 })
-app.listen(3000, () => {
-    console.log('Application listening on http://localhost:3000');
+app.listen(80, () => {
+    console.log('Application listening on http://localhost:80');
 });

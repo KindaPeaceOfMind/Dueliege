@@ -30,6 +30,10 @@ function ShowSkills(player){
 			div.style.borderRadius = '10px';
 			div.style.height = '80px';
 			div.style.width = '80px';
+			div.style.padding = '0 20px';
+			div.style.display = 'flex';
+			div.style.justifyContent = 'center';
+			div.style.alignItems = 'center';
 			div.value = 'ChangeTurn';
 			div.innerHTML = 'ChangeTurn';
 			div.classList.add('skills');
@@ -63,11 +67,16 @@ function ShowSkills(player){
 				div.style.position = 'fixed';
 				div.style.bottom = '0px';
 				div.style.backgroundColor = 'orange';
-				div.style.right = 85*i+'px';
+				div.style.right = (85+40)*i+'px';
 				div.style.border = '3px solid red';
 				div.style.borderRadius = '10px';
 				div.style.height = '80px';
 				div.style.width = '80px';
+				div.style.padding = '0 20px';
+				div.style.display = 'flex';
+				div.style.justifyContent = 'center';
+				div.style.alignItems = 'center';
+			
 				div.classList.add('skills');
 				
 				div.value = player.playerStats.skills[skill];

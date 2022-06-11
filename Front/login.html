@@ -49,7 +49,35 @@
         let login = event.target.parentNode.childNodes[5].value;
         let password = event.target.parentNode.childNodes[11].value;
 
-        let user = {login:login, password:password};
+        // генератор случайных чисел в заданном диапазоне
+        function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        // переменные для исходного сообщения, зашифрованного и ключа шифрования
+        var input, output,key;
+
+        // служебные переменные для шифра
+        var inp, k;
+
+        // запрашиваем текст, который будем шифровать
+        input = password;
+
+        // запрашиваем ключ шифрования
+        key = "dueliege";//prompt("Введите ключ");
+
+        // шифруем сообщение
+        output = "";
+        for (i = 0; i < input.length; i++) {
+
+            // берём цифровое значение очередного символа в сообщении и ключе
+            inp = input.charCodeAt(i);
+            k = key.charCodeAt(i);
+            // и применяем к ним исключающее или — XOR
+            output += String.fromCharCode(inp ^ k); 
+        }
+
+        let user = {login:login, password:output};
 
         let response = await fetch('/', {
             method: 'POST',

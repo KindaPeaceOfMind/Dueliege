@@ -209,7 +209,7 @@ async function createRoom() {
 }
 async function joinRoom(roomId){
     document.getElementsByClassName('body')[0].innerHTML='';
-    let response = await fetch('/rooms', {
+    let response = await fetch('/roomsConnect', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
