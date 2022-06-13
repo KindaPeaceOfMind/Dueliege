@@ -18,9 +18,7 @@ async function turnGetter(turnToGet) {
 
     let result = await fetcher(url,body);
     
-    if(turnToGet==0 && result[0]==1){
-        
-    }
+    // if(turnToGet==0 && result[0]==1){}
 
     if(result[0]==1){
         if(result[1][2]=='ChangeTurn'){
@@ -72,6 +70,7 @@ function RefreshStats(){
             players[i].playerStats.status[j] -= 1;
             switch (players[i].playerStats.status[j]) {
                 case 'fire':
+                case 'огонь':
                     GetDamage(players[i].classList[0],1);
                 break;
             }

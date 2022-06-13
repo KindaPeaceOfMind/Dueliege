@@ -20,6 +20,7 @@ function ShowSkills(player){
 		pastSkill.outerHTML='';
 	}
 	if(player){
+		// Кнопка смены хода
 		if(yourTurn){
 			let div = document.createElement('div');
 			div.style.position = 'fixed';
@@ -30,27 +31,31 @@ function ShowSkills(player){
 			div.style.borderRadius = '10px';
 			div.style.height = '80px';
 			div.style.width = '80px';
-			div.style.padding = '0 20px';
+			div.style.padding = '0 15px';
 			div.style.display = 'flex';
 			div.style.justifyContent = 'center';
 			div.style.alignItems = 'center';
-			div.value = 'ChangeTurn';
-			div.innerHTML = 'ChangeTurn';
+			div.value = 'Конец хода';
+			div.innerHTML = 'Конец хода';
 			div.classList.add('skills');
 			div.addEventListener('click', ClickChangeTurn);
 			document.body.appendChild(div);
 		}
+		// Статусы
 		let i = 0;
 		for (let stat in player.playerStats){
 			let div = document.createElement('div');
 			div.style.textAlignLast = 'left';
-			div.style.top = 15+15*i+'px';
+			div.style.top = 15+20*i+'px';
 			div.style.left = 15+'px';
 			div.style.position = 'fixed';
+			div.style.padding = '5px';
+			div.style.fontSize = '18px';
 			div.classList.add('skills');
 			div.innerHTML = stat+': '+player.playerStats[stat];
 			if(stat=='status'){
 				for(let condition in player.playerStats.status){
+					// status: fire: Длительность
 					div.innerHTML += condition+': '+player.playerStats.status[condition]
 				}
 			}
@@ -60,6 +65,7 @@ function ShowSkills(player){
 
 			i++;
 		}
+		// Скиллы снизу
 		if(player.team == sessionParams.login && yourTurn){
 			i = 0;
 			for (skill in player.playerStats.skills){
@@ -76,6 +82,7 @@ function ShowSkills(player){
 				div.style.display = 'flex';
 				div.style.justifyContent = 'center';
 				div.style.alignItems = 'center';
+				div.style.cursor = 'pointer';
 			
 				div.classList.add('skills');
 				

@@ -19,6 +19,7 @@ table{
     width: 1200px;
     border-spacing: 0;
     z-index: 2;
+    background: linear-gradient(180deg, #7e0000, #003ba3);
 }
 td{
     height: 28px;
@@ -27,6 +28,7 @@ td{
     background-size: 524px;
     transform: translate(0,0);
     z-index: 1;
+    background-clip: content-box;
 }
 td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
     cursor: pointer;
@@ -51,5 +53,6 @@ td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
     height: 19px;
     width: 28px;
     border-radius: 13px;
-    background: #040;  
+    background: #040;
+    cursor: pointer;
 }

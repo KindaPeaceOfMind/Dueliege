@@ -35,18 +35,22 @@ function ExplosionWave(cellId, r){
 }
 function FireBall(cellId){
     let cords = cellId.split('-');
-    let massive = [ //+
-        (cords[0])+'-'+(cords[1]),
-        (cords[0]-1)+'-'+(cords[1]), (Number(cords[0])+1)+'-'+(cords[1]),
-        (cords[0])+'-'+(cords[1]-1), (cords[0])+'-'+(Number(cords[1])+1),
-    ];
+    
+    let massive = [];
+    for(let i=-1; i<=1; i++){
+        for(let j=-1; j<=1; j++){
+            massive.push((Number(cords[0])+i)+'-'+(Number(cords[1])+j));
+        }
+    }
+
     for(let i=0; i<massive.length; i++){
         GetDamage(massive[i],2);
         let cell = document.getElementsByClassName(massive[i]);
          
         if(cell[0].getAttribute('type')==''){
             PlaceImg(massive[i], 'media/actions/gifs/fire.gif', true);
-            cell[0].setAttribute('type','fire');
+            // cell[0].setAttribute('type','fire');
+            cell[0].setAttribute('type','огонь');
             cell[0].hp = 2;
         }
 
@@ -73,5 +77,6 @@ function Capitulating(){
 }
 function IceWall(cellId){
     let cords = cellId.split('-');
-    WallCreate(Number(cords[0]),Number(cords[1]),'IceWall.png')
+    WallCreate(Number(cords[0]),Number(cords[1]),'IceWall.png');
+    RefreshPlayerVisibility();
 }

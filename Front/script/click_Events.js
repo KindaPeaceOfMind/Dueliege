@@ -3,22 +3,22 @@ let actionSubject = false;
 
 function ClickCell(){
     if(!yourTurn){
-        alert('Сейчас ход противника')
+        alert('Сейчас ход противника');
         return
     }
     // Условия для срабатывания для скиллов
     // 1 Проверка на дистанцию и наличие субъекта
-    let distance = CheckDistance(actionSubject.classList[0], event.target.classList[0])
-    if( action!='Walk' && actionSubject && 
-        actionSubject.playerStats.radius < distance){
+    let distance = 0;
+    if( (action!='Walk' || action!='Идти') && actionSubject && 
+        actionSubject.playerStats.radius < (distance = CheckDistance(actionSubject.classList[0], event.target.classList[0]))){
         return
     }
     // 2 Проверка на видимость для некоторых скилов
-    if(action == 'FireBall' && !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
+    if((action == 'FireBall' || action == 'Огненный шар') && !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
         return
     }
     // 3 Проверка на свободное место на клетке для размещения стены
-    if(action == 'IceWall'){
+    if(action == 'IceWall' || action == 'Ледяная стена'){
         let cell = document.getElementsByClassName(event.target.classList[0]);
         for(let i=0; i<cell.length;i++){
             if(cell[i].classList.contains('player') || cell[i].getAttribute('type') == 'wall'){
@@ -46,32 +46,34 @@ function ClickCell(){
 }
 function ActionPerformer(cellId) {
     switch (action) {
-        case '':
-            Empty();
-        break;
         case 0:
-            Empty();
-        break;
+        case '':
         case 'Empty':
             Empty();
         break;
         case 'EarthQuake':
+        case 'Землетрясение':
             ExplosionWave(cellId);
         break
-        case 'Place':
-            Place(cellId);
-        break
+        case 'Ледяная стена':
         case 'IceWall':
             IceWall(cellId);
         break
         case 'FireBall':
+        case 'Огненный шар':
             FireBall(cellId);
         break
+        case 'Идти':
         case 'Walk':
             Walk(cellId, actionSubject);
         break
         case 'Capitulating':
+        case 'Сдаться':
             Capitulating();
+        break
+        case 'Place':
+        case 'Поставить':
+            Place(cellId);
         break
     }
 }
@@ -107,18 +109,23 @@ function CheckDistance(cellId1, cellId2){
         return x
     }
 }
+
 function StaminaCost(action, distance){
     switch (action) {
         case "FireBall":
+        case "Огненный шар":
             return 4;
         break
         case "Walk":
+        case "Идти":
             return distance;
         break
         case 'EarthQuake':
+        case 'Землетрясение':
             return 4;
         break
         case "IceWall":
+        case "Ледяная стена":
             return 1;
         break
     }

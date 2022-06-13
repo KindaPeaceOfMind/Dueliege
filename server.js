@@ -79,8 +79,6 @@ app.get('/start', async function (req, res) {
   res.sendFile(`${__dirname}/Front/gameStart.html`);
 })
 
-
-
 app.post('/start', jsonParser, async function (req, res) {
   if (!req.body||req.body == {}) {return res.sendStatus(400)}
 
@@ -179,9 +177,19 @@ app.post('/session', jsonParser, async function (req, res){
   if(Session){
     // console.log(input)
     if(input[2] && input[3] && input[4] && input[5]){//post
-      sessionsTurns[input[0]][input[1]] = [input[2], input[3], input[4], input[5]]
-      
+
+      let count = 0;
+      if(input[4]=='Capitulating'){
+        for (let key in sessionsTurns[input[0]]) {
+            count++
+        }
+        sessionsTurns[input[0]][count] = [input[2], input[3], 'Capitulating', input[5]];
+        sessionsTurns[input[0]][1] = [input[2], input[3], 'Capitulating', input[5]];
+        console.log("Ход "+count+" добавлен");
+      }else{
+        sessionsTurns[input[0]][input[1]] = [input[2], input[3], input[4], input[5]]
       console.log("Ход "+input[1]+" добавлен");
+      }
       // console.log(sessionsTurns[input[0]][input[1]]);
 
       res.json([1])
@@ -191,9 +199,7 @@ app.post('/session', jsonParser, async function (req, res){
         if(sessionsTurns[input[0]][input[1]]){
           console.log("Ход "+input[1]+" в сессии "+input[0]+" выведен");
           // console.log(sessionsTurns[input[0][input[1]]]);
-          res.json([1,
-            sessionsTurns[input[0]][input[1]]
-          ])
+          res.json([1,sessionsTurns[input[0]][input[1]]])
           if(sessionsTurns[input[0]][input[1]][2]=='Capitulating'){// При завершении сессии
             delete sessionsTurns[input[0]];
             const DeleteSession = await prisma.sessions.deleteMany({

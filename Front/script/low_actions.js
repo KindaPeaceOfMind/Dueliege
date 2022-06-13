@@ -134,7 +134,9 @@ function AddStatuses(player){
     for(let i=0; i<cell.length; i++){
         switch (cell[i].getAttribute('type')) {
             case 'fire':
-                player.playerStats.status.fire = '2';
+            case 'огонь':
+                // player.playerStats.status.fire = '2';
+                player.playerStats.status.огонь = '2';
                 GetDamage(player.classList[0], 1);
             break;
         } 

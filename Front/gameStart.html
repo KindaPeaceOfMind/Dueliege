@@ -227,28 +227,34 @@ async function joinRoom(roomId){
     }else{document.write("Ошибка в ответе сервера")}
 }
 function InsertGameUrls(){
-let urls = [
-    'low_actions.js',
-    'actions.js',
-    'click_Events.js',
-    'game_interface.js',
-    'map_mouse_hover.js',
-    'map_render.js',
-    'map_scroller.js',
-    'player_render.js',
-    'gameTurns.js',
-];
-document.getElementsByClassName('body')[0].innerHTML = '\
-    <link rel="stylesheet" href="style/game_style.css">\
-    <link rel="stylesheet" href="style/walk.css">\
-';            
-for(i in urls){
-    let newScript = document.createElement("script");
-    newScript.src = 'script/'+urls[i];
-    newScript.charset="utf-8";
-    newScript.async = false;
-    document.getElementsByClassName('body')[0].appendChild(newScript);
-}
+    let urls = [
+        'low_actions.js',
+        'actions.js',
+        'click_Events.js',
+        'game_interface.js',
+        'map_mouse_hover.js',
+        'map_render.js',
+        'map_scroller.js',
+        'player_render.js',
+        'gameTurns.js',
+    ];
+    document.getElementsByClassName('body')[0].innerHTML = '\
+        <link rel="stylesheet" href="style/game_style.css">\
+        <link rel="stylesheet" href="style/walk.css">\
+    ';            
+    for(i in urls){
+        let newScript = document.createElement("script");
+        newScript.src = 'script/'+urls[i];
+        newScript.charset="utf-8";
+        newScript.async = false;
+        document.getElementsByClassName('body')[0].appendChild(newScript);
+    }
+
+    window.addEventListener("beforeunload", function() {
+        let sendData = [sessionParams.sessionId, turn, sessionParams.login, 'Capitulating', 'Capitulating', 'Capitulating'];
+        // navigator.sendBeacon("/session", JSON.stringify(sendData));
+        fetcher("/session", sendData);
+    });
 }
 </script>
 </body>

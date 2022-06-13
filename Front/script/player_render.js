@@ -1,16 +1,18 @@
 function PlayerStats(num){
     if(num % 2 == 1){ // Если маг
-        this.skills = ['Capitulating','','Walk','FireBall','IceWall']
+        // this.skills = ['Capitulating','','Walk','FireBall','IceWall']
+        this.skills = ['Сдаться','','Идти','Огненный шар','Ледяная стена']
         this.damage = 5;
     }else{            // Если рыцарь
-        this.skills = ['Capitulating','','Walk','EarthQuake']
+        // this.skills = ['Capitulating','','Walk','EarthQuake']
+        this.skills = ['Сдаться','','Идти','Землетрясение']
         this.damage = 7;
     }
     this.hp = 20;
     this.radius = 7;
     this.maxStamina = 6;
     this.stamina = 6;
-    this.status = []
+    this.status = [];
 };
 
 // Серверная часть
@@ -39,7 +41,7 @@ for(playerId in map.PlayersLocation){
         sessionParams.team == 1 && Number(playerId[1])<=2
     ){
         div.team = sessionParams.login;
-        div.style.border = '1px solid blue';
+        div.style.border = '1px solid limegreen';
     }else{
         div.team = sessionParams.enemy;
         div.style.border = '1px solid red';

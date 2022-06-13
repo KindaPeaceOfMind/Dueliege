@@ -6,6 +6,7 @@ function CellMouseHover(){
     let cellId = event.target.classList[0];// берёт y-x наведённого объекта
     switch (action) {
         case 'Walk':
+        case 'Идти':
             renderTrajectory(cellId);
         break;
     }
