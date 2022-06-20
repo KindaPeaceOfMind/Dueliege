@@ -9,19 +9,22 @@ function ClickCell(){
     // Условия для срабатывания для скиллов
     // 1 Проверка на дистанцию и наличие субъекта
     let distance = 0;
-    if( actionSubject && (action!='Walk' || action!='Идти') && 
-        actionSubject.playerStats.radius < (distance = CheckDistance(actionSubject.classList[0], event.target.classList[0]))){
+    if( !actionSubject || 
+        actionSubject.playerStats.radius < (distance = CheckDistance(actionSubject.classList[0], event.target.classList[0])) && 
+        (action!='Walk' && action!='Идти' && action!="Сдаться" && action!="Capitulating" && action!="")//Скиллы без радиуса
+        ){
         return
     }
     // 2 Проверка на видимость для некоторых скилов
-    if((action == 'FireBall' || action == 'Огненный шар') && !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
+    if((action == 'FireBall' || action == 'Огненный шар') &&
+    !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
         return
     }
-    // 3 Проверка на свободное место на клетке для размещения стены
+    // 3 Проверка на игрока на клетке для размещения стены
     if(action == 'IceWall' || action == 'Ледяная стена'){
         let cell = document.getElementsByClassName(event.target.classList[0]);
-        for(let i=0; i<cell.length;i++){
-            if(cell[i].classList.contains('player') || cell[i].getAttribute('type') == 'wall'){
+        for(let i=0; i<cell.length; i++){
+            if(cell[i].classList.contains('player')){
                 return
             }
         }
@@ -93,6 +96,14 @@ function ClickHero(){
     }
 }
 function ClickSkill(){
+    let skills = document.getElementsByClassName('skills');
+    for(let i=0; i<skills.length; i++){
+        if(skills[i].classList.contains('activeSkill')){
+            skills[i].classList.remove('activeSkill');
+        }
+    }
+    event.target.classList.add('activeSkill');
+
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
     hoverEffects.innerHTML = '';
 	action = event.target.value;// Действие для ClickCell

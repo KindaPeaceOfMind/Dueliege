@@ -188,7 +188,7 @@ app.post('/session', jsonParser, async function (req, res){
         console.log("Ход "+count+" добавлен");
       }else{
         sessionsTurns[input[0]][input[1]] = [input[2], input[3], input[4], input[5]]
-      console.log("Ход "+input[1]+" добавлен");
+        console.log("Ход "+input[1]+" добавлен");
       }
       // console.log(sessionsTurns[input[0]][input[1]]);
 

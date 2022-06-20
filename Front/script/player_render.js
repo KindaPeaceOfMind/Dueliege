@@ -1,4 +1,8 @@
 function PlayerStats(num){
+    this.status = [];
+    this.radius = 7;
+    this.maxStamina = 6;
+    this.stamina = 6;
     if(num % 2 == 1){ // Если маг
         // this.skills = ['Capitulating','','Walk','FireBall','IceWall']
         this.skills = ['Сдаться','','Идти','Огненный шар','Ледяная стена']
@@ -9,11 +13,7 @@ function PlayerStats(num){
         this.damage = 5;
     }
     this.hp = 20;
-    this.radius = 7;
-    this.maxStamina = 6;
-    this.stamina = 6;
-    this.status = [];
-};
+}
 
 // Серверная часть
 //////////////////////////////////////////////////////////////////////////
@@ -53,4 +53,5 @@ for(playerId in map.PlayersLocation){
     div.playerStats = new PlayerStats(Number(playerId[1]));
 
     div.addEventListener('click', ClickHero);
+	div.addEventListener('mouseover', CellMouseHover);
 }

@@ -48,6 +48,10 @@ async function fetcher(url,body){
     return await response.json();
 }
 async function ClickChangeTurn(){
+    ShowSkills();
+    let hoverEffects = document.getElementsByClassName('hoverEffects')[0];
+    hoverEffects.innerHTML = '';
+    
     await turnPoster(sessionParams.login, 'ChangeTurn', 'ChangeTurn', '0-0');
     ChangeTurn();
 }
@@ -75,7 +79,9 @@ function GameTimeAdd(){
             switch (players[i].playerStats.status[j]) {
                 case 'fire':
                 case 'огонь':
-                    GetDamage(players[i].classList[0],1);
+                    if(GetDamage(players[i].classList[0], 1)){ 
+                        j--;
+                    }
                 break;
             }
             if(players[i].playerStats.status[j] == 0){
@@ -87,7 +93,8 @@ function GameTimeAdd(){
 
     let fire = document.getElementsByClassName('fire');
     for(let i=0; i<fire.length; i++){// Для всех картинок с огнём
-        let cell = document.getElementsByClassName(fire.classList[0]);
-        GetDamage(players[i].classList[0], 1);
+        if(GetDamage(fire[i].classList[0], 1)){
+            i--;
+        }
     }
 }

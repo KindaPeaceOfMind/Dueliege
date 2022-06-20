@@ -90,9 +90,7 @@ async function MovePlayer(player, side){
     let playerPosition = player.classList[0].split('-');
     let y = Number(playerPosition[0])+side[0];
     let x = Number(playerPosition[1])+side[1];
-
     
-
     document.documentElement.style.setProperty('--walking-left-start',(x-side[1])*48-18+'px');
     document.documentElement.style.setProperty('--walking-top-start', (y-side[0])*28-60+'px');
 
@@ -106,9 +104,6 @@ async function MovePlayer(player, side){
             return false;
         }
     }
-    
-
-
     player.style.animation = 'walking '+speed+'s 1 forwards';
     
     return new Promise((resolve, reject) => {
@@ -131,14 +126,16 @@ async function MovePlayer(player, side){
  * @player obj
  */
 function AddStatuses(player){
-    cell = document.getElementsByClassName(player.classList[0]);
-    for(let i=0; i<cell.length; i++){
-        switch (cell[i].getAttribute('type')) {
+    let cells = document.getElementsByClassName(player.classList[0]);
+    for(let i=0; i<cells.length; i++){
+        switch (cells[i].getAttribute('type')) {
             case 'fire':
             case 'огонь':
                 // player.playerStats.status.fire = '2';
                 player.playerStats.status.огонь = '2';
-                GetDamage(player.classList[0], 1);
+                if(GetDamage(player.classList[0], 1)){
+                    i--;
+                }
             break;
         } 
     }
@@ -167,7 +164,8 @@ function Attack(player, subj){
 }
 /**
  * Наносит урон субъекту//игроку на клетке, 
- * равный damage
+ * равный damage   
+ * Если кто-то сдох - возвращает true
  */
 function GetDamage(cellId,damage){
     let cell = document.getElementsByClassName(cellId);
@@ -178,8 +176,9 @@ function GetDamage(cellId,damage){
             if(cell[i].playerStats.hp <= 0){
                 cell[i].outerHTML='';
                 CheckWin();
+                return true
             }
-            return
+            return false
         }
     }
     if(cell[0].getAttribute('type')!=''){
@@ -188,8 +187,10 @@ function GetDamage(cellId,damage){
         if(cell[0].hp <= 0){
             ClearCell(cellId);
             delete cell[0].hp;
+            return true
         }
     }
+    return false
 }
 let damageIndicatorMassive = {}//чтобы цифры не сливались
 function DamageIndicator(cellId, damage){

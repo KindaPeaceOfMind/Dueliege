@@ -13,6 +13,10 @@ function CellMouseHover(){
 }
 
 function renderTrajectory(cellId) {
+    if(!actionSubject || actionSubject.playerStats.stamina < CheckDistance(cellId, hoverPLayerPosition)){
+        return
+    }
+
     let start = hoverPLayerPosition.split('-');
     let trajectory = WalkComputing(cellId, hoverPLayerPosition);
     let hoverEffects = document.getElementsByClassName('hoverEffects')[0];

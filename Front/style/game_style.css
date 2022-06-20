@@ -4,8 +4,14 @@
 html{
     overflow-x: hidden;
 }
+@media screen and (max-width: 1250px) {
+    html{
+        overflow-x: visible;
+    }
+}
 body{
-    max-width: 1600px;
+    max-width: 1600px;    
+    background-color: rgb(40 26 0);
 }
 .body{
     width: 150%;
@@ -39,6 +45,9 @@ td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
 }
 .skills{
     z-index: 3;
+}
+.activeSkill{
+    box-shadow: inset 0px 0px 8px 3px #eeff00;
 }
 .wall1,.wall2,.wall3{
     transform: skewX(32deg);

@@ -79,6 +79,7 @@ function Capitulating(){
 }
 function IceWall(cellId){
     let cords = cellId.split('-');
+    ClearCell(cellId);
     WallCreate(Number(cords[0]),Number(cords[1]),'IceWall.png');
     RefreshPlayerVisibility();
 }

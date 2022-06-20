@@ -14,7 +14,9 @@ document.getElementsByClassName('body')[0].appendChild(skillMenu);
 
 
 
-//При щелчке на персонажа отображаются его скиллы
+/**При щелчке на персонажа отображаются его скиллы. 
+ * Если не передан игрок () - очищает интерфейс
+*/
 function ShowSkills(player){
 	while(pastSkill = document.getElementsByClassName('skills')[0]){
 		pastSkill.outerHTML='';
@@ -44,14 +46,16 @@ function ShowSkills(player){
 		// Статусы
 		let i = 0;
 		for (let stat in player.playerStats){
+			if(stat=='skills'){ continue }
 			let div = document.createElement('div');
 			div.style.textAlignLast = 'left';
-			div.style.top = 15+20*i+'px';
+			div.style.top = 15+40*i+'px';
 			div.style.left = 15+'px';
 			div.style.position = 'fixed';
 			div.style.padding = '5px';
-			div.style.fontSize = '18px';
+			div.style.fontSize = '34px';
 			div.classList.add('skills');
+			div.classList.add('status_'+stat);
 			div.innerHTML = stat+': '+player.playerStats[stat];
 			if(stat=='status'){
 				for(let condition in player.playerStats.status){
@@ -83,7 +87,10 @@ function ShowSkills(player){
 				div.style.justifyContent = 'center';
 				div.style.alignItems = 'center';
 				div.style.cursor = 'pointer';
-			
+				
+				div.style.fontSize = '20px';
+				div.style.textAlign = '-webkit-center';
+
 				div.classList.add('skills');
 				
 				div.value = player.playerStats.skills[skill];
