@@ -9,7 +9,7 @@ function ClickCell(){
     // Условия для срабатывания для скиллов
     // 1 Проверка на дистанцию и наличие субъекта
     let distance = 0;
-    if( (action!='Walk' || action!='Идти') && actionSubject && 
+    if( actionSubject && (action!='Walk' || action!='Идти') && 
         actionSubject.playerStats.radius < (distance = CheckDistance(actionSubject.classList[0], event.target.classList[0]))){
         return
     }
@@ -114,7 +114,7 @@ function StaminaCost(action, distance){
     switch (action) {
         case "FireBall":
         case "Огненный шар":
-            return 4;
+            return 3;
         break
         case "Walk":
         case "Идти":

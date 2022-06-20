@@ -21,8 +21,9 @@ function PlaceImg(cellId, media, skew){
 	anim.addEventListener('click', ClickCell);
 	anim.addEventListener('mouseover', CellMouseHover);
     anim.src = media;
-    if(skew){anim.style.transform = 'skewX(32deg)';}
+    if(skew){ anim.style.transform = 'skewX(32deg)'; }
     table.appendChild(anim);
+    return anim;
 }
 let optiLift = {};
 let optiLiftCounter = 0;
@@ -186,7 +187,7 @@ function GetDamage(cellId,damage){
         DamageIndicator(cellId,damage);
         if(cell[0].hp <= 0){
             ClearCell(cellId);
-            delete cell[0].hp
+            delete cell[0].hp;
         }
     }
 }
@@ -234,7 +235,7 @@ function CheckWin(){
     }
 }
 /**
- * Сносит всё ненужное на клетке и присваивает type= ' '
+ * Сносит всё на клетке и присваивает type= ' '
  */
 function ClearCell(cellId){
     let cell = document.getElementsByClassName(cellId);

@@ -55,18 +55,22 @@ function ChangeTurn(){
     yourTurn = !yourTurn;
     action = false;
     actionSubject = false;
-    RefreshStats();
+    GameTimeAdd();
+    
     if(!yourTurn){
         ShowSkills();
         turnGetter(turn);
     }
 }
-function RefreshStats(){
+function GameTimeAdd(){
     let players = document.getElementsByClassName('player');
-    for(let i=0; i<players.length; i++){
-        players[i].playerStats.stamina = players[i].playerStats.maxStamina;                 //stamina
+    for(let i=0; i<players.length; i++){// Для всех игроков
         
-        for(let j=0; i<players[i].playerStats.status.length; j++){  //снимаем один ход статусов
+        //Обновляем стамину
+        players[i].playerStats.stamina = players[i].playerStats.maxStamina;  
+        
+        //снимаем один ход статусов
+        for(let j=0; i<players[i].playerStats.status.length; j++){  
             players[i].playerStats.status[j] -= 1;
             switch (players[i].playerStats.status[j]) {
                 case 'fire':
@@ -79,5 +83,11 @@ function RefreshStats(){
                 j--;
             }
         }
+    }
+
+    let fire = document.getElementsByClassName('fire');
+    for(let i=0; i<fire.length; i++){// Для всех картинок с огнём
+        let cell = document.getElementsByClassName(fire.classList[0]);
+        GetDamage(players[i].classList[0], 1);
     }
 }

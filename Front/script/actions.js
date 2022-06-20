@@ -17,6 +17,8 @@ function ExplosionWave(cellId, r){
 
             function timeQueue1(a,b){
                 let cellStr = (Number(cell[0])+b)+'-'+(Number(cell[1])+a);
+                if(!cellStr){ return }
+                
                 setTimeout(() => {
                     Lift(cellStr, 20, 1, 0);
                 }, (Math.abs(a)+Math.abs(b))*100);
@@ -26,7 +28,7 @@ function ExplosionWave(cellId, r){
                     if(document.getElementsByClassName(cellStr)[0].getAttribute('type')=='wall'){
                         GetDamage(cellStr, 20);
                     }else{
-                        GetDamage(cellStr, 2);
+                        GetDamage(cellStr, 3);
                     }
                 }, (Math.abs(a)+Math.abs(b))*100+1000);
             }
@@ -48,13 +50,13 @@ function FireBall(cellId){
         let cell = document.getElementsByClassName(massive[i]);
          
         if(cell[0].getAttribute('type')==''){
-            PlaceImg(massive[i], 'media/actions/gifs/fire.gif', true);
+            let fire = PlaceImg(massive[i], 'media/actions/gifs/fire.gif', true);
+            fire.classList.add('fire');
             // cell[0].setAttribute('type','fire');
             cell[0].setAttribute('type','огонь');
-            cell[0].hp = 2;
+            cell[0].hp = 4;
         }
 
-        
         for(let j=0; j<cell.length;j++){
             if(cell[j].classList[1]=='player'){
                 AddStatuses(cell[j])

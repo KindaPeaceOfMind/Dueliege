@@ -2,11 +2,11 @@ function PlayerStats(num){
     if(num % 2 == 1){ // Если маг
         // this.skills = ['Capitulating','','Walk','FireBall','IceWall']
         this.skills = ['Сдаться','','Идти','Огненный шар','Ледяная стена']
-        this.damage = 5;
+        this.damage = 4;
     }else{            // Если рыцарь
         // this.skills = ['Capitulating','','Walk','EarthQuake']
         this.skills = ['Сдаться','','Идти','Землетрясение']
-        this.damage = 7;
+        this.damage = 5;
     }
     this.hp = 20;
     this.radius = 7;
