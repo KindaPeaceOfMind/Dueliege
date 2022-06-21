@@ -193,20 +193,24 @@ function GetDamage(cellId,damage){
     return false
 }
 let damageIndicatorMassive = {}//чтобы цифры не сливались
-function DamageIndicator(cellId, damage){
+function DamageIndicator(cellId, message, color){
     if(damageIndicatorMassive[cellId]){
         setTimeout(() => {
-            DamageIndicator(cellId, damage);
+            DamageIndicator(cellId, message, color);
         }, 2000);
         return
     }
     damageIndicatorMassive[cellId] = true;
     let div = document.createElement('div');
     let coords = cellId.split('-');
-    div.innerHTML = damage;
+    div.innerHTML = message;
     div.style.position = 'absolute';
     div.style.transform = 'skewX(32deg)';
-    div.style.color = 'orange';
+    if(color){
+        div.style.color = color;
+    }else{
+        div.style.color = 'orange';
+    }
     div.style.zIndex = 999;
     div.style.fontSize = '22px';
     div.style.left = 48*coords[1]+24+'px';

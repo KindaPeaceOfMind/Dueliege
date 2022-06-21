@@ -73,6 +73,9 @@ for (let i = 0; i < map.sizeY; i++)//Строка
 		td.classList.add(i + "-" + j);
 		td.addEventListener('click', ClickCell);
 		td.addEventListener('mouseover', CellMouseHover);
+
+		td.addEventListener("touchmove", CellMouseHover); //Движение пальцем по экрану
+
 		tr.appendChild(td);
 
 		AttributeGetter(td, map[i*map.sizeX+j]);//Запихнули в каждый td атрибуты полученной карты

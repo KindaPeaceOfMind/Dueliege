@@ -15,7 +15,7 @@ body{
 }
 .body{
     width: 150%;
-    height: 1850px;
+    height: 1900px;
     background-color: rgb(40 26 0);
     /*background-image: url("../media/sprites/objects/walls/Кирп-кам-стена.png");*/
 }
@@ -46,6 +46,12 @@ td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
 .skills{
     z-index: 3;
 }
+/* @media screen and (max-height: 500px) {
+    .skills{
+        height: 50px;
+        width: 65px;
+    }
+} */
 .activeSkill{
     box-shadow: inset 0px 0px 8px 3px #eeff00;
 }
@@ -64,4 +70,12 @@ td:hover, .wall1:hover, .wall2:hover, .wall3:hover{
     border-radius: 13px;
     background: #040;
     cursor: pointer;
+}
+.fireStep{    
+    position: absolute;
+    height: 18px;
+    width: 28px;
+    background: rgb(255 255 255 / 0%);
+    cursor: pointer;
+    box-shadow: inset 0px 0px 0px 9px #ff6328;
 }

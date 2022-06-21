@@ -12,12 +12,14 @@ function ClickCell(){
     if( !actionSubject || 
         actionSubject.playerStats.radius < (distance = CheckDistance(actionSubject.classList[0], event.target.classList[0])) && 
         (action!='Walk' && action!='Идти' && action!="Сдаться" && action!="Capitulating" && action!="")//Скиллы без радиуса
-        ){
+    ){
+        DamageIndicator(event.target.classList[0],'Слишком далеко от игрока', 'white')
         return
     }
     // 2 Проверка на видимость для некоторых скилов
     if((action == 'FireBall' || action == 'Огненный шар') &&
     !CheckCoordsVisibility(event.target.classList[0], actionSubject.classList[0])){
+        DamageIndicator(event.target.classList[0],'Клетка вне зоны видимости', 'white')
         return
     }
     // 3 Проверка на игрока на клетке для размещения стены
@@ -25,6 +27,7 @@ function ClickCell(){
         let cell = document.getElementsByClassName(event.target.classList[0]);
         for(let i=0; i<cell.length; i++){
             if(cell[i].classList.contains('player')){
+                DamageIndicator(event.target.classList[0],'Клетка занята', 'white')
                 return
             }
         }
@@ -32,6 +35,7 @@ function ClickCell(){
     // 4 Проверка на выносливость
     let staminaCost = StaminaCost(action, distance);
     if(staminaCost > actionSubject.playerStats.stamina){
+        DamageIndicator(event.target.classList[0],'Недостаточно выносливости', 'white')
         return
     }else{
         actionSubject.playerStats.stamina -= staminaCost;

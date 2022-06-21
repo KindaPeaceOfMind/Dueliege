@@ -8,7 +8,6 @@ skillMenu.innerHTML =
 	'<polygon points="4,5 305,5 4,488" fill="orange" stroke="red" stroke-width="5"></polygon>'+
 '</svg>';
 skillMenu.style.position = 'fixed';
-skillMenu.style.zIndex = 1;
 skillMenu.classList = 'skillMenu';
 document.getElementsByClassName('body')[0].appendChild(skillMenu);
 
